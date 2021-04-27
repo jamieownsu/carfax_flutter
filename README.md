@@ -1,16 +1,15 @@
 # carfax
 
-A new Flutter project.
+carfax
 
-## Getting Started
+## Useful commands
 
-This project is a starting point for a Flutter application.
+open -a Simulator
 
-A few resources to get you started if this is your first Flutter project:
+flutter pub run build_runner build --delete-conflicting-outputs
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+open ios/Runner.xcworkspace
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+http://10.0.2.2:3000 === http://localhost:3000
+
+flutter build ios --obfuscate --split-debug-info=//Users/jamieotoole/Workspace/misc/ltclive_flutter

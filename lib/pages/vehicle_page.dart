@@ -1,9 +1,12 @@
+import 'package:carfax/json/account_json.dart';
+import 'package:carfax/pages/vehicle_page/bottom_nav_bar_widget.dart';
 import 'package:carfax/pages/glovebox_page.dart';
 import 'package:carfax/pages/vehicle_page/maintenance_item.dart';
 import 'package:carfax/pages/vehicle_page/recall_item.dart';
+import 'package:carfax/state/inherited_state.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:transparent_image/transparent_image.dart';
-import '../state/inherited_state.dart';
 
 class VehiclePage extends StatefulWidget {
   VehiclePage({Key key}) : super(key: key);
@@ -13,7 +16,7 @@ class VehiclePage extends StatefulWidget {
 }
 
 class _VehiclePageState extends State<VehiclePage> {
-  Widget _buildVehicleHeader(vehicle) {
+  Widget _buildVehicleHeader(Vehicle vehicle) {
     return Card(
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         FadeInImage.memoryNetwork(
@@ -21,12 +24,18 @@ class _VehiclePageState extends State<VehiclePage> {
           height: 100,
           width: 100,
           fit: BoxFit.scaleDown,
-          image: vehicle.images.firstPhoto.small.toString(),
+          image:
+              'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
           Text('Today\'s Odometer Reading'),
           Row(mainAxisSize: MainAxisSize.min, children: [
-            Text(vehicle.mileage.toString(),
+            Text(
+                NumberFormat.decimalPattern()
+                    .format(vehicle.metric
+                        ? vehicle.lastOdoKm
+                        : vehicle.lastOdoMileage)
+                    .toString(),
                 style: TextStyle(fontSize: 16, color: Colors.blue)),
             IconButton(
               icon: const Icon(Icons.edit_outlined),
@@ -90,12 +99,12 @@ class _VehiclePageState extends State<VehiclePage> {
   Widget build(BuildContext context) {
     var vehicle = InheritedVehicleState.of(context).vehicle;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${vehicle.year} ${vehicle.make} ${vehicle.model}'),
-        centerTitle: true,
-      ),
-      body:
-          Column(children: [_buildVehicleHeader(vehicle), _buildServiceList()]),
-    );
+        appBar: AppBar(
+          title: Text('${vehicle.year} ${vehicle.make} ${vehicle.model}'),
+          centerTitle: true,
+        ),
+        body: Column(
+            children: [_buildVehicleHeader(vehicle), _buildServiceList()]),
+        bottomNavigationBar: BottomNavBarWidget(0, () => {}));
   }
 }

@@ -10,9 +10,24 @@ class StandardSettings extends StatefulWidget {
 }
 
 class _StandardSettingsState extends State<StandardSettings> {
+  TextEditingController _textController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var vehicle = InheritedVehicleState.of(context).vehicle;
+    _textController.text = vehicle.licensePlate ?? '';
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
@@ -44,6 +59,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                   Expanded(
                     flex: 2,
                     child: TextField(
+                      controller: _textController,
                       style: TextStyle(fontSize: 14),
                       maxLines: 1,
                       decoration: InputDecoration(
@@ -65,7 +81,8 @@ class _StandardSettingsState extends State<StandardSettings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Trim', style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(vehicle.trim, style: TextStyle(color: Colors.blueAccent))
+                  Text(vehicle.vehicleDescription,
+                      style: TextStyle(color: Colors.blueAccent))
                 ]),
           ),
           Padding(
@@ -75,7 +92,8 @@ class _StandardSettingsState extends State<StandardSettings> {
                 children: [
                   Text('Nickname',
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text('-', style: TextStyle(color: Colors.blueAccent))
+                  Text(vehicle.nickname ?? '-',
+                      style: TextStyle(color: Colors.blueAccent))
                 ]),
           ),
           Padding(
@@ -85,7 +103,8 @@ class _StandardSettingsState extends State<StandardSettings> {
                 children: [
                   Text('ZIP/Postal Code',
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text('90210', style: TextStyle(color: Colors.blueAccent))
+                  Text(vehicle.postalCode,
+                      style: TextStyle(color: Colors.blueAccent))
                 ]),
           ),
         ]),

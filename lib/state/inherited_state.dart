@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../json/vehicles_json.dart';
+import '../json/account_json.dart';
 
 class InheritedVehicleState extends InheritedWidget {
   const InheritedVehicleState({
@@ -9,7 +9,7 @@ class InheritedVehicleState extends InheritedWidget {
     @required Widget child,
   }) : super(key: key, child: child);
 
-  final Listings vehicle;
+  final Vehicle vehicle;
 
   static InheritedVehicleState of(BuildContext context) {
     final result =

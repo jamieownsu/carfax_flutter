@@ -1,8 +1,7 @@
 import 'package:carfax/dropdowns/distance_driven_dropdown.dart';
 import 'package:carfax/dropdowns/km_miles_dropdown.dart';
+import 'package:carfax/state/inherited_state.dart';
 import 'package:flutter/material.dart';
-
-import '../../state/inherited_state.dart';
 
 class OdometerSettings extends StatefulWidget {
   OdometerSettings({Key key}) : super(key: key);
@@ -12,14 +11,6 @@ class OdometerSettings extends StatefulWidget {
 }
 
 class _OdometerSettingsState extends State<OdometerSettings> {
-  var kmMiles = '(KM)';
-
-  void _kmMilesCallback(val) {
-    setState(() {
-      kmMiles = val == 'Miles' ? '(MI)' : '(KM)';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var vehicle = InheritedVehicleState.of(context).vehicle;
@@ -36,9 +27,13 @@ class _OdometerSettingsState extends State<OdometerSettings> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Today\'s Odometer Reading $kmMiles',
+                  Text(
+                      'Today\'s Odometer Reading ${vehicle.metric ? '(KM)' : '(MI)'}',
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(vehicle.mileage.toString(),
+                  Text(
+                      vehicle.metric
+                          ? vehicle.lastOdoKm.toString()
+                          : vehicle.lastOdoMileage.toString(),
                       style: TextStyle(color: Colors.blueAccent))
                 ]),
           ),
@@ -54,7 +49,7 @@ class _OdometerSettingsState extends State<OdometerSettings> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: KmMilesDropdown(callback: _kmMilesCallback),
+                    child: KmMilesDropdown(),
                   )
                 ]),
           ),

@@ -1,11 +1,10 @@
-import 'package:carfax/json/vehicles_json.dart';
+import 'package:carfax/json/account_json.dart';
 import 'package:carfax/pages/vehicle_page.dart';
+import 'package:carfax/state/inherited_state.dart';
 import 'package:carfax/utilities/network_utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-
-import '../state/inherited_state.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -31,29 +30,33 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _buildVehicleList(Listings listings) {
-    var card = Card(
-      child: ListTile(
-        contentPadding: EdgeInsets.all(10),
-        leading: FadeInImage.memoryNetwork(
-          placeholder: kTransparentImage,
-          image: listings.images.firstPhoto.small.toString(),
-        ),
-        title: Text('${listings.year} ${listings.make} ${listings.model}'),
-        trailing: Icon(Icons.arrow_right),
-        onTap: () {
-          Navigator.push(
-            context,
-            CupertinoPageRoute(
-              builder: (context) => InheritedVehicleState(
-                vehicle: listings,
-                child: VehiclePage(),
+  void _buildVehicleList(Account account) {
+    account.vehicles.forEach((item) {
+      var card = Card(
+        child: ListTile(
+          contentPadding: EdgeInsets.all(10),
+          leading: FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            image:
+                'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
+          ),
+          title: Text('${item.year} ${item.make} ${item.model}'),
+          trailing: Icon(Icons.arrow_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => InheritedVehicleState(
+                  vehicle: item,
+                  child: VehiclePage(),
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+      setState(() => listItems.add(card));
+    });
     var addVehicle = Card(
       child: ListTile(
         title: Center(
@@ -61,10 +64,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-    setState(() {
-      listItems.add(card);
-      listItems.add(addVehicle);
-    });
+    setState(() => listItems.add(addVehicle));
   }
 
   @override
