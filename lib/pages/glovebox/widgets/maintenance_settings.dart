@@ -1,4 +1,4 @@
-import 'package:carfax/dropdowns/registration_dropdown.dart';
+import 'package:carfax/pages/glovebox/dropdowns/registration_dropdown.dart';
 import 'package:flutter/material.dart';
 
 class MaintenanceSettings extends StatefulWidget {

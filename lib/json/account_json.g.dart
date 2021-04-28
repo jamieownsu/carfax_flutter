@@ -6,8 +6,8 @@ part of 'account_json.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Account _$AccountFromJson(Map<String, dynamic> json) {
-  return Account(
+AccountJson _$AccountJsonFromJson(Map<String, dynamic> json) {
+  return AccountJson(
     accountAttributes: json['accountAttributes'] as List,
     accountCreationDate: json['accountCreationDate'] == null
         ? null
@@ -18,11 +18,11 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
         : ConsumerSignup.fromJson(
             json['consumerSignup'] as Map<String, dynamic>),
     email: json['email'] as String,
-    facebookId: json['facebookId'],
-    favoriteShopCompCode: json['favoriteShopCompCode'],
-    firstName: json['firstName'],
-    forcedOneAccount: json['forcedOneAccount'],
-    fraudAccount: json['fraudAccount'],
+    facebookId: json['facebookId'] as String,
+    favoriteShopCompCode: json['favoriteShopCompCode'] as String,
+    firstName: json['firstName'] as String,
+    forcedOneAccount: json['forcedOneAccount'] as String,
+    fraudAccount: json['fraudAccount'] as String,
     fraudAccountWatch: (json['fraudAccountWatch'] as List)
         ?.map((e) => e == null
             ? null
@@ -33,23 +33,24 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
     language: json['language'] as String,
     maxAddedVehiclesCount: json['maxAddedVehiclesCount'] as int,
     maxVehiclesCount: json['maxVehiclesCount'] as int,
-    newPassword: json['newPassword'],
+    newPassword: json['newPassword'] as String,
     oneAccountId: json['oneAccountId'] as int,
-    partnerId: json['partnerId'],
+    partnerId: json['partnerId'] as String,
     postalCode: json['postalCode'] as String,
-    signUp: json['signUp'],
+    signUp: json['signUp'] as String,
     suggestedViNs: json['suggestedViNs'] as List,
-    token: json['token'],
-    type: json['type'],
+    token: json['token'] as String,
+    type: json['type'] as String,
     vehicles: (json['vehicles'] as List)
         ?.map((e) =>
             e == null ? null : Vehicle.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    verifyEmail: json['verifyEmail'],
+    verifyEmail: json['verifyEmail'] as String,
   );
 }
 
-Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
+Map<String, dynamic> _$AccountJsonToJson(AccountJson instance) =>
+    <String, dynamic>{
       'accountAttributes': instance.accountAttributes,
       'accountCreationDate': instance.accountCreationDate?.toIso8601String(),
       'agree': instance.agree,
@@ -82,8 +83,8 @@ ConsumerSignup _$ConsumerSignupFromJson(Map<String, dynamic> json) {
   return ConsumerSignup(
     account: json['account'] == null
         ? null
-        : AccountClass.fromJson(json['account'] as Map<String, dynamic>),
-    compCode: json['compCode'],
+        : Account.fromJson(json['account'] as Map<String, dynamic>),
+    compCode: json['compCode'] as String,
     id: json['id'] as int,
     salesForceId: json['salesForceId'] as String,
     type: json['type'] as String,
@@ -99,15 +100,14 @@ Map<String, dynamic> _$ConsumerSignupToJson(ConsumerSignup instance) =>
       'type': instance.type,
     };
 
-AccountClass _$AccountClassFromJson(Map<String, dynamic> json) {
-  return AccountClass(
+Account _$AccountFromJson(Map<String, dynamic> json) {
+  return Account(
     ref: json['ref'] as String,
     accountClass: json['accountClass'] as String,
   );
 }
 
-Map<String, dynamic> _$AccountClassToJson(AccountClass instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
       'ref': instance.ref,
       'accountClass': instance.accountClass,
     };
@@ -116,7 +116,7 @@ FraudAccountWatch _$FraudAccountWatchFromJson(Map<String, dynamic> json) {
   return FraudAccountWatch(
     account: json['account'] == null
         ? null
-        : AccountClass.fromJson(json['account'] as Map<String, dynamic>),
+        : Account.fromJson(json['account'] as Map<String, dynamic>),
     createDate: json['createDate'] == null
         ? null
         : DateTime.parse(json['createDate'] as String),
@@ -145,20 +145,20 @@ Vehicle _$VehicleFromJson(Map<String, dynamic> json) {
     avgDistanceSource: json['avgDistanceSource'] as String,
     avgKmPerYear: json['avgKmPerYear'] as int,
     avgMilesPerYear: json['avgMilesPerYear'] as int,
-    bodyTypeDescription: json['bodyTypeDescription'],
-    confirmedServiceDate: json['confirmedServiceDate'],
+    bodyTypeDescription: json['bodyTypeDescription'] as String,
+    confirmedServiceDate: json['confirmedServiceDate'] as String,
     createDate: json['createDate'] == null
         ? null
         : DateTime.parse(json['createDate'] as String),
     displayRecords: json['displayRecords'] as List,
-    driveline: json['driveline'],
-    engineInformation: json['engineInformation'],
+    driveline: json['driveline'] as String,
+    engineInformation: json['engineInformation'] as String,
     estimatedCurrentKm: json['estimatedCurrentKm'] as int,
     estimatedCurrentMileage: json['estimatedCurrentMileage'] as int,
     events: json['events'] as List,
     favoriteShops: json['favoriteShops'] as List,
     id: json['id'] as int,
-    lastModDate: json['lastModDate'],
+    lastModDate: json['lastModDate'] as String,
     lastOdoDate: json['lastOdoDate'] == null
         ? null
         : DateTime.parse(json['lastOdoDate'] as String),
@@ -168,11 +168,11 @@ Vehicle _$VehicleFromJson(Map<String, dynamic> json) {
     lastOwnershipDate: json['lastOwnershipDate'] == null
         ? null
         : DateTime.parse(json['lastOwnershipDate'] as String),
-    licensePlate: json['licensePlate'],
+    licensePlate: json['licensePlate'] as String,
     make: json['make'] as String,
     metric: json['metric'] as bool,
     model: json['model'] as String,
-    nickname: json['nickname'],
+    nickname: json['nickname'] as String,
     numberOfAfterMarketServiceRecords:
         json['numberOfAfterMarketServiceRecords'] as int,
     numberOfDealerServiceRecords: json['numberOfDealerServiceRecords'] as int,
@@ -181,7 +181,7 @@ Vehicle _$VehicleFromJson(Map<String, dynamic> json) {
     numberOfServiceRecords: json['numberOfServiceRecords'] as int,
     pickListShops: json['pickListShops'] as List,
     postalCode: json['postalCode'] as String,
-    recallDataDisplayable: json['recallDataDisplayable'],
+    recallDataDisplayable: json['recallDataDisplayable'] as String,
     recallDismissals: json['recallDismissals'] as List,
     recentShops: json['recentShops'] as List,
     serviceScheduleIdentifier: json['serviceScheduleIdentifier'] == null
@@ -189,11 +189,11 @@ Vehicle _$VehicleFromJson(Map<String, dynamic> json) {
         : ServiceScheduleIdentifier.fromJson(
             json['serviceScheduleIdentifier'] as Map<String, dynamic>),
     severeEvents: json['severeEvents'] as List,
-    signupType: json['signupType'],
+    signupType: json['signupType'] as String,
     socialSharingDescription: json['socialSharingDescription'] as String,
     submodelSelected: json['submodelSelected'] as bool,
     suggestedShops: json['suggestedShops'] as List,
-    tradeInLeads: json['tradeInLeads'],
+    tradeInLeads: json['tradeInLeads'] as String,
     userEventIntervals: (json['userEventIntervals'] as List)
         ?.map((e) => e == null
             ? null
@@ -202,7 +202,7 @@ Vehicle _$VehicleFromJson(Map<String, dynamic> json) {
     vehicleDescription: json['vehicleDescription'] as String,
     vehiclePhotos: json['vehiclePhotos'] as List,
     vin: json['vin'] as String,
-    wellMaintainedBadge: json['wellMaintainedBadge'],
+    wellMaintainedBadge: json['wellMaintainedBadge'] as String,
     year: json['year'] as String,
   );
 }
@@ -280,15 +280,15 @@ Map<String, dynamic> _$AttributeToJson(Attribute instance) => <String, dynamic>{
 ServiceScheduleIdentifier _$ServiceScheduleIdentifierFromJson(
     Map<String, dynamic> json) {
   return ServiceScheduleIdentifier(
-    cylinders: json['cylinders'],
+    cylinders: json['cylinders'] as String,
     engineBaseId: json['engineBaseId'] as int,
     engineDesignationId: json['engineDesignationId'] as int,
-    fuelType: json['fuelType'],
+    fuelType: json['fuelType'] as String,
     id: json['id'] as int,
-    liter: json['liter'],
-    modelName: json['modelName'],
+    liter: json['liter'] as String,
+    modelName: json['modelName'] as String,
     submodelId: json['submodelId'] as int,
-    submodelName: json['submodelName'],
+    submodelName: json['submodelName'] as String,
     vinSelectPattern: json['vinSelectPattern'] as String,
   );
 }
@@ -313,9 +313,9 @@ UserEventInterval _$UserEventIntervalFromJson(Map<String, dynamic> json) {
     dayInterval: json['dayInterval'] as int,
     eventType: json['eventType'] as String,
     id: json['id'] as int,
-    kmInterval: json['kmInterval'],
-    mileageInterval: json['mileageInterval'],
-    monthInterval: json['monthInterval'],
+    kmInterval: json['kmInterval'] as String,
+    mileageInterval: json['mileageInterval'] as String,
+    monthInterval: json['monthInterval'] as String,
   );
 }
 

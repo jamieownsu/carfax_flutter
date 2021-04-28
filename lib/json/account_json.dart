@@ -3,8 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'account_json.g.dart';
 
 @JsonSerializable()
-class Account {
-  Account({
+class AccountJson {
+  AccountJson({
     this.accountAttributes,
     this.accountCreationDate,
     this.agree,
@@ -33,37 +33,37 @@ class Account {
     this.verifyEmail,
   });
 
-  factory Account.fromJson(Map<String, dynamic> json) =>
-      _$AccountFromJson(json);
+  factory AccountJson.fromJson(Map<String, dynamic> json) =>
+      _$AccountJsonFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AccountToJson(this);
+  Map<String, dynamic> toJson() => _$AccountJsonToJson(this);
 
   List<dynamic> accountAttributes;
   DateTime accountCreationDate;
   bool agree;
   ConsumerSignup consumerSignup;
   String email;
-  dynamic facebookId;
-  dynamic favoriteShopCompCode;
-  dynamic firstName;
-  dynamic forcedOneAccount;
-  dynamic fraudAccount;
+  String facebookId;
+  String favoriteShopCompCode;
+  String firstName;
+  String forcedOneAccount;
+  String fraudAccount;
   List<FraudAccountWatch> fraudAccountWatch;
   int id;
   bool isCanadian;
   String language;
   int maxAddedVehiclesCount;
   int maxVehiclesCount;
-  dynamic newPassword;
+  String newPassword;
   int oneAccountId;
-  dynamic partnerId;
+  String partnerId;
   String postalCode;
-  dynamic signUp;
+  String signUp;
   List<dynamic> suggestedViNs;
-  dynamic token;
-  dynamic type;
+  String token;
+  String type;
   List<Vehicle> vehicles;
-  dynamic verifyEmail;
+  String verifyEmail;
 }
 
 @JsonSerializable()
@@ -81,24 +81,24 @@ class ConsumerSignup {
 
   Map<String, dynamic> toJson() => _$ConsumerSignupToJson(this);
 
-  AccountClass account;
-  dynamic compCode;
+  Account account;
+  String compCode;
   int id;
   String salesForceId;
   String type;
 }
 
 @JsonSerializable()
-class AccountClass {
-  AccountClass({
+class Account {
+  Account({
     this.ref,
     this.accountClass,
   });
 
-  factory AccountClass.fromJson(Map<String, dynamic> json) =>
-      _$AccountClassFromJson(json);
+  factory Account.fromJson(Map<String, dynamic> json) =>
+      _$AccountFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AccountClassToJson(this);
+  Map<String, dynamic> toJson() => _$AccountToJson(this);
 
   String ref;
   String accountClass;
@@ -118,7 +118,7 @@ class FraudAccountWatch {
 
   Map<String, dynamic> toJson() => _$FraudAccountWatchToJson(this);
 
-  AccountClass account;
+  Account account;
   DateTime createDate;
   int id;
   String vin;
@@ -193,28 +193,28 @@ class Vehicle {
   String avgDistanceSource;
   int avgKmPerYear;
   int avgMilesPerYear;
-  dynamic bodyTypeDescription;
-  dynamic confirmedServiceDate;
+  String bodyTypeDescription;
+  String confirmedServiceDate;
   DateTime createDate;
   List<dynamic> displayRecords;
-  dynamic driveline;
-  dynamic engineInformation;
+  String driveline;
+  String engineInformation;
   int estimatedCurrentKm;
   int estimatedCurrentMileage;
   List<dynamic> events;
   List<dynamic> favoriteShops;
   int id;
-  dynamic lastModDate;
+  String lastModDate;
   DateTime lastOdoDate;
   int lastOdoKm;
   int lastOdoMileage;
   String lastOdoSource;
   DateTime lastOwnershipDate;
-  dynamic licensePlate;
+  String licensePlate;
   String make;
   bool metric;
   String model;
-  dynamic nickname;
+  String nickname;
   int numberOfAfterMarketServiceRecords;
   int numberOfDealerServiceRecords;
   int numberOfDisplayableRecords;
@@ -222,21 +222,21 @@ class Vehicle {
   int numberOfServiceRecords;
   List<dynamic> pickListShops;
   String postalCode;
-  dynamic recallDataDisplayable;
+  String recallDataDisplayable;
   List<dynamic> recallDismissals;
   List<dynamic> recentShops;
   ServiceScheduleIdentifier serviceScheduleIdentifier;
   List<dynamic> severeEvents;
-  dynamic signupType;
+  String signupType;
   String socialSharingDescription;
   bool submodelSelected;
   List<dynamic> suggestedShops;
-  dynamic tradeInLeads;
+  String tradeInLeads;
   List<UserEventInterval> userEventIntervals;
   String vehicleDescription;
   List<dynamic> vehiclePhotos;
   String vin;
-  dynamic wellMaintainedBadge;
+  String wellMaintainedBadge;
   String year;
 }
 
@@ -278,15 +278,15 @@ class ServiceScheduleIdentifier {
 
   Map<String, dynamic> toJson() => _$ServiceScheduleIdentifierToJson(this);
 
-  dynamic cylinders;
+  String cylinders;
   int engineBaseId;
   int engineDesignationId;
-  dynamic fuelType;
+  String fuelType;
   int id;
-  dynamic liter;
-  dynamic modelName;
+  String liter;
+  String modelName;
   int submodelId;
-  dynamic submodelName;
+  String submodelName;
   String vinSelectPattern;
 }
 
@@ -309,7 +309,7 @@ class UserEventInterval {
   int dayInterval;
   String eventType;
   int id;
-  dynamic kmInterval;
-  dynamic mileageInterval;
-  dynamic monthInterval;
+  String kmInterval;
+  String mileageInterval;
+  String monthInterval;
 }

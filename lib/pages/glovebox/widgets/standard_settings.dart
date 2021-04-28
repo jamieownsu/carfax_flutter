@@ -1,6 +1,7 @@
-import 'package:carfax/dropdowns/province_dropdown.dart';
-import 'package:carfax/state/inherited_state.dart';
+import 'package:carfax/data/account.dart';
+import 'package:carfax/pages/glovebox/dropdowns/province_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StandardSettings extends StatefulWidget {
   StandardSettings({Key key}) : super(key: key);
@@ -26,13 +27,13 @@ class _StandardSettingsState extends State<StandardSettings> {
 
   @override
   Widget build(BuildContext context) {
-    var vehicle = InheritedVehicleState.of(context).vehicle;
-    _textController.text = vehicle.licensePlate ?? '';
+    _textController.text = context.watch<UserVehicle>().licensePlate ?? '';
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
         child: Text(
-            '${vehicle.year} ${vehicle.make} ${vehicle.model}'.toUpperCase(),
+            '${context.watch<UserVehicle>().year} ${context.watch<UserVehicle>().make} ${context.watch<UserVehicle>().model}'
+                .toUpperCase(),
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
@@ -43,7 +44,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('VIN', style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(vehicle.vin)
+                  Text(context.watch<UserVehicle>().vin)
                 ]),
           ),
           Padding(
@@ -81,7 +82,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Trim', style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(vehicle.vehicleDescription,
+                  Text(context.watch<UserVehicle>().vehicleDescription,
                       style: TextStyle(color: Colors.blueAccent))
                 ]),
           ),
@@ -92,7 +93,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                 children: [
                   Text('Nickname',
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(vehicle.nickname ?? '-',
+                  Text(context.watch<UserVehicle>().nickname ?? '-',
                       style: TextStyle(color: Colors.blueAccent))
                 ]),
           ),
@@ -103,7 +104,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                 children: [
                   Text('ZIP/Postal Code',
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(vehicle.postalCode,
+                  Text(context.watch<UserVehicle>().postalCode,
                       style: TextStyle(color: Colors.blueAccent))
                 ]),
           ),

@@ -1,9 +1,9 @@
-import 'package:carfax/json/account_json.dart';
-import 'package:carfax/pages/vehicle_page.dart';
-import 'package:carfax/state/inherited_state.dart';
+import 'package:carfax/data/account.dart';
+import 'package:carfax/pages/vehicle_detail_page.dart';
 import 'package:carfax/utilities/network_utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,47 +15,44 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _loading = true;
-  List<Card> listItems = [];
+  final List<Card> _list = [];
 
   @override
   void initState() {
     super.initState();
-    NetworkUtility.getVehicles().then((value) {
+    NetworkUtility.getAccount().then((value) {
       if (value != null) {
-        setState(() {
-          _loading = false;
-          _buildVehicleList(value);
-        });
+        _buildVehicleList(value);
+        setState(() => _loading = false);
       }
     });
   }
 
-  void _buildVehicleList(Account account) {
+  void _buildVehicleList(UserAccount account) {
     account.vehicles.forEach((item) {
       var card = Card(
         child: ListTile(
-          contentPadding: EdgeInsets.all(10),
-          leading: FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image:
-                'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
-          ),
-          title: Text('${item.year} ${item.make} ${item.model}'),
-          trailing: Icon(Icons.arrow_right),
-          onTap: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => InheritedVehicleState(
-                  vehicle: item,
-                  child: VehiclePage(),
+            contentPadding: EdgeInsets.all(10),
+            leading: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image:
+                  'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
+            ),
+            title: Text('${item.year} ${item.make} ${item.model}'),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => ChangeNotifierProvider.value(
+                    value: item,
+                    child: VehicleDetailPage(vin: item.vin),
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
+              );
+            }),
       );
-      setState(() => listItems.add(card));
+      setState(() => _list.add(card));
     });
     var addVehicle = Card(
       child: ListTile(
@@ -64,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-    setState(() => listItems.add(addVehicle));
+    setState(() => _list.add(addVehicle));
   }
 
   @override
@@ -74,8 +71,8 @@ class _HomePageState extends State<HomePage> {
         TextButton(onPressed: () {}, child: Text('Edit')),
       ]),
       body: _loading
-          ? Center(child: CircularProgressIndicator())
-          : ListView(children: listItems),
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(children: _list),
     );
   }
 }

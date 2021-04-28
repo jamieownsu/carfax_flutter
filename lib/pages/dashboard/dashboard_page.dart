@@ -1,22 +1,26 @@
-import 'package:carfax/json/account_json.dart';
-import 'package:carfax/pages/vehicle_page/bottom_nav_bar_widget.dart';
-import 'package:carfax/pages/glovebox_page.dart';
-import 'package:carfax/pages/vehicle_page/maintenance_item.dart';
-import 'package:carfax/pages/vehicle_page/recall_item.dart';
-import 'package:carfax/state/inherited_state.dart';
+import 'package:carfax/data/account.dart';
+import 'package:carfax/pages/glovebox/glovebox_page.dart';
+import 'package:carfax/pages/dashboard/widgets/maintenance_item.dart';
+import 'package:carfax/pages/dashboard/widgets/recall_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class VehiclePage extends StatefulWidget {
-  VehiclePage({Key key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  DashboardPage({Key key}) : super(key: key);
 
   @override
-  _VehiclePageState createState() => _VehiclePageState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _VehiclePageState extends State<VehiclePage> {
-  Widget _buildVehicleHeader(Vehicle vehicle) {
+class _DashboardPageState extends State<DashboardPage> {
+  Widget _buildVehicleHeader() {
+    var vehicle = context.watch<UserVehicle>();
+    var kmMiles = 'mi';
+    if (context.watch<UserVehicle>().metric) {
+      kmMiles = 'km';
+    }
     return Card(
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         FadeInImage.memoryNetwork(
@@ -31,11 +35,7 @@ class _VehiclePageState extends State<VehiclePage> {
           Text('Today\'s Odometer Reading'),
           Row(mainAxisSize: MainAxisSize.min, children: [
             Text(
-                NumberFormat.decimalPattern()
-                    .format(vehicle.metric
-                        ? vehicle.lastOdoKm
-                        : vehicle.lastOdoMileage)
-                    .toString(),
+                '${NumberFormat.decimalPattern().format(context.watch<UserVehicle>().metric ? context.watch<UserVehicle>().kilometers : context.watch<UserVehicle>().miles).toString()} $kmMiles',
                 style: TextStyle(fontSize: 16, color: Colors.blue)),
             IconButton(
               icon: const Icon(Icons.edit_outlined),
@@ -55,9 +55,9 @@ class _VehiclePageState extends State<VehiclePage> {
                   context,
                   MaterialPageRoute(
                     fullscreenDialog: true,
-                    builder: (context) => InheritedVehicleState(
-                      vehicle: vehicle,
-                      child: Glovebox(),
+                    builder: (context) => ChangeNotifierProvider.value(
+                      value: vehicle,
+                      child: GloveboxPage(),
                     ),
                   ),
                 );
@@ -66,16 +66,6 @@ class _VehiclePageState extends State<VehiclePage> {
             Text('Glovebox', style: TextStyle(fontSize: 12))
           ]),
         ),
-      ]),
-    );
-  }
-
-  Widget _buildHelpLink() {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Text('Something Wrong'),
-        Text(' Get Help', style: TextStyle(color: Colors.blue)),
       ]),
     );
   }
@@ -95,16 +85,18 @@ class _VehiclePageState extends State<VehiclePage> {
     );
   }
 
+  Widget _buildHelpLink() {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text('Something Wrong'),
+        Text(' Get Help', style: TextStyle(color: Colors.blue)),
+      ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    var vehicle = InheritedVehicleState.of(context).vehicle;
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('${vehicle.year} ${vehicle.make} ${vehicle.model}'),
-          centerTitle: true,
-        ),
-        body: Column(
-            children: [_buildVehicleHeader(vehicle), _buildServiceList()]),
-        bottomNavigationBar: BottomNavBarWidget(0, () => {}));
+    return Column(children: [_buildVehicleHeader(), _buildServiceList()]);
   }
 }
