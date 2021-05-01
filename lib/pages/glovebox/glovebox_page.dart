@@ -19,7 +19,7 @@ class _GloveboxPageState extends State<GloveboxPage> {
       appBar: AppBar(title: Text('Glovebox'), centerTitle: true, actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Done', style: TextStyle(fontSize: 16)),
+          child: const Text('Done', style: TextStyle(fontSize: 16)),
         )
       ]),
       body: SingleChildScrollView(

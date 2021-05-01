@@ -13,7 +13,7 @@ class _FuelSettingsState extends State<FuelSettings> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
-        child: Text('FUEL EFFICIENCY SETTINGS',
+        child: const Text('FUEL EFFICIENCY SETTINGS',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
@@ -25,11 +25,11 @@ class _FuelSettingsState extends State<FuelSettings> {
                 children: [
                   Expanded(
                       flex: 5,
-                      child: Text('Fuel efficiency',
+                      child: const Text('Fuel efficiency',
                           style: TextStyle(fontWeight: FontWeight.bold))),
                   Expanded(
                       flex: 2,
-                      child: Text('Start Tracking',
+                      child: const Text('Start Tracking',
                           style: TextStyle(color: Colors.blueAccent))),
                   Expanded(flex: 0, child: const Icon(Icons.arrow_right))
                 ]),

@@ -17,7 +17,7 @@ class _OdometerSettingsState extends State<OdometerSettings> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
-        child: Text('ODOMETER SETTINGS',
+        child: const Text('ODOMETER SETTINGS',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
@@ -44,7 +44,7 @@ class _OdometerSettingsState extends State<OdometerSettings> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: Text('Units',
+                    child: const Text('Units',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
@@ -60,7 +60,7 @@ class _OdometerSettingsState extends State<OdometerSettings> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: Text('Average Annual Distance Driven',
+                    child: const Text('Average Annual Distance Driven',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Expanded(

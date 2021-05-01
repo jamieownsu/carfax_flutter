@@ -1,6 +1,8 @@
-import 'package:carfax/pages/home_page.dart';
+import 'package:carfax/data/account.dart';
+import 'package:carfax/pages/home/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MainPage());
@@ -12,7 +14,8 @@ class MainPage extends StatelessWidget {
     return MaterialApp(
       title: 'Carfax Demo',
       theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.dark),
-      home: HomePage(),
+      home: ChangeNotifierProvider(
+          create: (_) => UserAccount(), child: HomePage()),
     );
   }
 }

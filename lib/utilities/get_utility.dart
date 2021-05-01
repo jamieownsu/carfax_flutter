@@ -5,7 +5,7 @@ import 'package:carfax/json/vehicle_details_json.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-class NetworkUtility {
+class GetUtility {
   static Future<UserAccount> getAccount() async {
     try {
       var data = await rootBundle.loadString('assets/data/account.json');
@@ -20,6 +20,7 @@ class NetworkUtility {
     var account = AccountJson.fromJson(json.decode(data));
     var userAccount = UserAccount();
     userAccount.email = account.email;
+    userAccount.isCanadian = account.isCanadian;
     account.vehicles.forEach((element) {
       var userVehicle = UserVehicle();
       userVehicle.make = element.make;
@@ -42,11 +43,15 @@ class NetworkUtility {
     try {
       var data =
           await rootBundle.loadString('assets/data/vehicle_details.json');
-      return VehicleDetailsJson.fromJson(json.decode(data));
+      return compute(parseVehicleDetailsJson, data);
     } catch (e, s) {
       print('$e $s');
       return null;
     }
+  }
+
+  static VehicleDetailsJson parseVehicleDetailsJson(String data) {
+    return VehicleDetailsJson.fromJson(json.decode(data));
   }
 
   static Future<List<ServiceRecord>> getShopRecords() async {
@@ -65,7 +70,7 @@ class NetworkUtility {
     var serviceRecords = <ServiceRecord>[];
     vehicleDetails.displayRecords.forEach((element) {
       var serviceRecord = ServiceRecord();
-      serviceRecord.shopName = element.source[0].text;
+      serviceRecord.shopName = element.source.first.text;
       serviceRecord.kmAtService = element.odometerKm;
       serviceRecord.miAtService = element.odometer;
       serviceRecord.date = element.displayDate;

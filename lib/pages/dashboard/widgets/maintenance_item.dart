@@ -27,7 +27,7 @@ class MaintenanceItem extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: LinearProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                  // valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
                   value: 1 - (durationLeft / durationTotal),
                 ),
               )

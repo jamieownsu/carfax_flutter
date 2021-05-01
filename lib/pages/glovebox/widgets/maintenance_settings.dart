@@ -14,7 +14,7 @@ class _MaintenanceSettingsState extends State<MaintenanceSettings> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
-        child: Text('MAINTENANCE SETTINGS',
+        child: const Text('MAINTENANCE SETTINGS',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
@@ -27,7 +27,7 @@ class _MaintenanceSettingsState extends State<MaintenanceSettings> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Oil Change',
+                        const Text('Oil Change',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         Text('8000 kilometers, 12 months',
                             style: TextStyle(fontSize: 12))
@@ -42,7 +42,7 @@ class _MaintenanceSettingsState extends State<MaintenanceSettings> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: Text('Registration',
+                    child: const Text('Registration',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Expanded(

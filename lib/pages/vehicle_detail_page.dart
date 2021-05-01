@@ -1,8 +1,8 @@
 import 'package:carfax/data/account.dart';
 import 'package:carfax/pages/dashboard/dashboard_page.dart';
 import 'package:carfax/pages/history/history_page.dart';
-import 'package:carfax/pages/shared/bottom_nav_bar.dart';
-import 'package:carfax/utilities/network_utility.dart';
+import 'package:carfax/data/bottom_nav_bar.dart';
+import 'package:carfax/utilities/get_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +24,11 @@ class _VehicleDetailPageState extends State<VehicleDetailPage> {
   @override
   void initState() {
     super.initState();
-    NetworkUtility.getVehicleDetails(widget.vin).then((value) {
+    GetUtility.getVehicleDetails(widget.vin).then((value) {
       if (value != null) {
+        context.read<UserVehicle>().bodyTypeDescription =
+            value.bodyTypeDescription;
+        context.read<UserVehicle>().events = value.events;
         setState(() => _loading = false);
       }
     });
@@ -37,12 +40,16 @@ class _VehicleDetailPageState extends State<VehicleDetailPage> {
     super.dispose();
   }
 
+  void pageIndexCallback(int idx) {
+    setState(() => _selectedIndex = idx);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            '${context.watch<UserVehicle>().year} ${context.watch<UserVehicle>().make} ${context.watch<UserVehicle>().model}'),
+            '${context.read<UserVehicle>().year} ${context.read<UserVehicle>().make} ${context.read<UserVehicle>().model}'),
         centerTitle: true,
       ),
       body: _loading
@@ -52,8 +59,7 @@ class _VehicleDetailPageState extends State<VehicleDetailPage> {
               onPageChanged: (int idx) {
                 setState(() => _selectedIndex = idx);
               },
-              children: <Widget>[DashboardPage(), HistoryPage()],
-            ),
+              children: <Widget>[DashboardPage(), HistoryPage()]),
       bottomNavigationBar: BottomNavigationBar(
           items: bottomNavItems.map((BottomNav bottomNavMenuItem) {
             return BottomNavigationBarItem(

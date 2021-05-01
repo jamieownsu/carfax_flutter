@@ -13,7 +13,7 @@ class _NotesState extends State<Notes> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
-        child: Text('NOTES',
+        child: const Text('NOTES',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(

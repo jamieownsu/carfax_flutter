@@ -1,25 +1,46 @@
+import 'package:carfax/json/vehicle_details_json.dart';
 import 'package:flutter/cupertino.dart';
 
 class UserAccount with ChangeNotifier {
   String email;
-  List<UserVehicle> vehicles = [];
+  bool isCanadian;
+  List<UserVehicle> _vehicles = [];
+
+  List<UserVehicle> get vehicles => _vehicles;
+  set vehicles(val) {
+    _vehicles = val;
+    notifyListeners();
+  }
 }
 
 class UserVehicle with ChangeNotifier {
   String make,
       model,
       year,
-      licensePlate,
+      _licensePlate,
       vin,
       vehicleDescription,
-      nickname,
+      bodyTypeDescription,
+      _nickname,
       postalCode;
   bool _metric;
   int kilometers, miles;
   List<ServiceRecord> serviceRecords;
+  List<Event> events;
+
+  String get licensePlate => _licensePlate;
+  set licensePlate(val) {
+    _licensePlate = val;
+    notifyListeners();
+  }
+
+  String get nickname => _nickname;
+  set nickname(val) {
+    _nickname = val;
+    notifyListeners();
+  }
 
   bool get metric => _metric;
-
   set metric(val) {
     _metric = val;
     notifyListeners();
