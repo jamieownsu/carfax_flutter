@@ -16,20 +16,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _loading = true;
-  ListView _list;
-  UserAccount _userAccount;
 
   @override
   void initState() {
     super.initState();
-    GetUtility.getAccount().then((value) {
-      if (value != null) {
-        _buildVehicleList(value);
-        setState(() {
-          _userAccount = value;
-          _loading = false;
-        });
-      }
+    GetUtility.getAccount(context.read<UserAccount>()).then((value) {
+      setState(() {
+        _loading = false;
+      });
     });
   }
 
@@ -57,17 +51,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _buildVehicleList(UserAccount account) {
-    var list = ListView.builder(
+  Widget _buildVehicleList() {
+    return ListView.builder(
         shrinkWrap: true,
-        itemCount: account.vehicles.length,
+        itemCount: context.watch<UserAccount>().vehicles.length,
         itemBuilder: (context, index) {
-          final vehicle = account.vehicles[index];
+          final vehicle = context.watch<UserAccount>().vehicles[index];
           return Dismissible(
               key: Key(vehicle.vin),
               onDismissed: (direction) {
                 setState(() {
-                  account.vehicles.removeAt(index);
+                  context.read<UserAccount>().vehicles.removeAt(index);
                 });
               },
               confirmDismiss: (DismissDirection direction) async {
@@ -103,9 +97,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              child: _buildCard(account, vehicle));
+              child: _buildCard(context.watch<UserAccount>(), vehicle));
         });
-    setState(() => _list = list);
   }
 
   @override
@@ -115,28 +108,25 @@ class _HomePageState extends State<HomePage> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              Flexible(child: _list),
+              Flexible(child: _buildVehicleList()),
               Card(
                 child: TextButton.icon(
-                    onPressed: () {
-                      var account = context.read<UserAccount>();
-                      Navigator.push(
+                  onPressed: () {
+                    var account = context.read<UserAccount>();
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           fullscreenDialog: true,
                           builder: (context) => ChangeNotifierProvider.value(
                             value: account,
-                            child: AddCarPage(userAccount: _userAccount),
+                            child: AddCarPage(),
                           ),
-                        ),
-                      ).then((value) {
-                        // _buildVehicleList(context.read<UserAccount>());
-                        _buildVehicleList(_userAccount);
-                      });
-                    },
-                    icon: const Icon(Icons.directions_car_sharp),
-                    label: const Text('Add a Car',
-                        style: TextStyle(fontSize: 16))),
+                        ));
+                  },
+                  icon: const Icon(Icons.directions_car_sharp),
+                  label:
+                      const Text('Add a Car', style: TextStyle(fontSize: 16)),
+                ),
               ),
             ]),
     );

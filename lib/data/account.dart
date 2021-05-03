@@ -11,6 +11,11 @@ class UserAccount with ChangeNotifier {
     _vehicles = val;
     notifyListeners();
   }
+
+  void add(UserVehicle item) {
+    _vehicles.add(item);
+    notifyListeners();
+  }
 }
 
 class UserVehicle with ChangeNotifier {

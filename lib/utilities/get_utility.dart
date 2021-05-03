@@ -6,37 +6,34 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class GetUtility {
-  static Future<UserAccount> getAccount() async {
+  static Future<void> getAccount(UserAccount userAccount) async {
     try {
       var data = await rootBundle.loadString('assets/data/account.json');
-      return compute(parseAccountJson, data);
+      var account = await compute(parseAccountJson, data);
+      userAccount.email = account.email;
+      userAccount.isCanadian = account.isCanadian;
+      account.vehicles.forEach((element) {
+        var userVehicle = UserVehicle();
+        userVehicle.make = element.make;
+        userVehicle.model = element.model;
+        userVehicle.year = element.year;
+        userVehicle.licensePlate = element.licensePlate;
+        userVehicle.vin = element.vin;
+        userVehicle.vehicleDescription = element.vehicleDescription;
+        userVehicle.nickname = element.nickname;
+        userVehicle.postalCode = element.postalCode;
+        userVehicle.metric = element.metric;
+        userVehicle.kilometers = element.lastOdoKm;
+        userVehicle.miles = element.lastOdoMileage;
+        userAccount.vehicles.add(userVehicle);
+      });
     } catch (e, s) {
       print('$e $s');
-      return null;
     }
   }
 
-  static UserAccount parseAccountJson(String data) {
-    var account = AccountJson.fromJson(json.decode(data));
-    var userAccount = UserAccount();
-    userAccount.email = account.email;
-    userAccount.isCanadian = account.isCanadian;
-    account.vehicles.forEach((element) {
-      var userVehicle = UserVehicle();
-      userVehicle.make = element.make;
-      userVehicle.model = element.model;
-      userVehicle.year = element.year;
-      userVehicle.licensePlate = element.licensePlate;
-      userVehicle.vin = element.vin;
-      userVehicle.vehicleDescription = element.vehicleDescription;
-      userVehicle.nickname = element.nickname;
-      userVehicle.postalCode = element.postalCode;
-      userVehicle.metric = element.metric;
-      userVehicle.kilometers = element.lastOdoKm;
-      userVehicle.miles = element.lastOdoMileage;
-      userAccount.vehicles.add(userVehicle);
-    });
-    return userAccount;
+  static AccountJson parseAccountJson(String data) {
+    return AccountJson.fromJson(json.decode(data));
   }
 
   static Future<VehicleDetailsJson> getVehicleDetails(String vin) async {

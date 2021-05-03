@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:carfax/data/account.dart';
 import 'package:carfax/json/account_json.dart';
 import 'package:flutter/foundation.dart';
@@ -23,7 +22,7 @@ class PostUtility {
       userVehicle.metric = accountJson.vehicles[0].metric;
       userVehicle.kilometers = accountJson.vehicles[0].lastOdoKm;
       userVehicle.miles = accountJson.vehicles[0].lastOdoMileage;
-      userAccount.vehicles.add(userVehicle);
+      userAccount.add(userVehicle);
     } catch (e, s) {
       print('$e $s');
       return null;

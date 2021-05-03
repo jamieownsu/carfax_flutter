@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddCarPage extends StatefulWidget {
-  AddCarPage({Key key, @required this.userAccount}) : super(key: key);
-
-  final UserAccount userAccount;
+  AddCarPage({Key key}) : super(key: key);
 
   @override
   _AddCarPageState createState() => _AddCarPageState();
@@ -70,10 +68,9 @@ class _AddCarPageState extends State<AddCarPage> {
             child: ElevatedButton(
                 onPressed: isVinEnabled
                     ? () {
-                        // var account = context.read<UserAccount>();
                         if (_vinFormKey.currentState.validate()) {
                           print(_vinTextController.text);
-                          PostUtility.addVehicle(widget.userAccount);
+                          PostUtility.addVehicle(context.read<UserAccount>());
                         }
                       }
                     : null,
@@ -107,7 +104,6 @@ class _AddCarPageState extends State<AddCarPage> {
             child: TextFormField(
               controller: _plateTextController,
               maxLines: 1,
-              maxLength: 8,
               onChanged: (String value) async {
                 setState(() {
                   isPlateEnabled = value.length > 2 ? true : false;
@@ -169,6 +165,7 @@ class _AddCarPageState extends State<AddCarPage> {
                       ? () {
                           if (_plateProvStateFormKey.currentState.validate()) {
                             print('${_plateTextController.text} $stateProv');
+                            PostUtility.addVehicle(context.read<UserAccount>());
                           }
                         }
                       : null,
