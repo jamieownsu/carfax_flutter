@@ -13,14 +13,14 @@ class _MaintenanceSettingsState extends State<MaintenanceSettings> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+        padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
         child: const Text('MAINTENANCE SETTINGS',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
         child: Column(children: [
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -36,7 +36,7 @@ class _MaintenanceSettingsState extends State<MaintenanceSettings> {
                 ]),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

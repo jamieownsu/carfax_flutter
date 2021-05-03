@@ -36,38 +36,38 @@ class _StandardSettingsState extends State<StandardSettings> {
         ),
         Expanded(
           flex: 2,
-          child:
-              context.watch<UserVehicle>().licensePlate.isEmpty || _editLicense
-                  ? TextField(
-                      controller: _licenseTextController,
-                      style: TextStyle(fontSize: 14),
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          border: OutlineInputBorder(),
-                          labelText: 'License plate'),
-                      onSubmitted: (value) {
-                        context.read<UserVehicle>().licensePlate =
-                            value.toUpperCase();
-                        setState(() {
-                          _editLicense = false;
-                        });
-                      },
-                    )
-                  : InkWell(
-                      onTap: () {
-                        setState(() {
-                          _editLicense = true;
-                        });
-                      },
-                      child: Text(context.watch<UserVehicle>().licensePlate,
-                          style: TextStyle(color: Colors.blueAccent)),
-                    ),
+          child: context.watch<UserVehicle>().licensePlate.isEmpty ||
+                  _editLicense
+              ? TextField(
+                  controller: _licenseTextController,
+                  style: TextStyle(fontSize: 14),
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      border: OutlineInputBorder(),
+                      labelText: 'License plate'),
+                  onSubmitted: (value) {
+                    context.read<UserVehicle>().licensePlate =
+                        value.toUpperCase();
+                    setState(() {
+                      _editLicense = false;
+                    });
+                  },
+                )
+              : InkWell(
+                  onTap: () {
+                    setState(() {
+                      _editLicense = true;
+                    });
+                  },
+                  child: Text(context.watch<UserVehicle>().licensePlate,
+                      style: TextStyle(color: Colors.blueAccent)),
+                ),
         ),
         Expanded(
             flex: 2,
             child: Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ProvinceStateDropdown()))
       ]),
     );
@@ -76,7 +76,7 @@ class _StandardSettingsState extends State<StandardSettings> {
   Widget _buildNickname() {
     _nicknameTextController.text = context.watch<UserVehicle>().nickname;
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         const Text('Nickname', style: TextStyle(fontWeight: FontWeight.bold)),
         Expanded(flex: 2, child: SizedBox()),
@@ -88,7 +88,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                   style: TextStyle(fontSize: 14),
                   maxLines: 1,
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                       border: OutlineInputBorder(),
                       labelText: 'Nickname'),
                   onSubmitted: (value) {
@@ -119,7 +119,7 @@ class _StandardSettingsState extends State<StandardSettings> {
   Widget _buildPostalCode() {
     _postalTextController.text = context.watch<UserVehicle>().postalCode;
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         const Text('ZIP/Postal Code',
             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -132,7 +132,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                   style: TextStyle(fontSize: 14),
                   maxLines: 1,
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                       border: OutlineInputBorder(),
                       labelText: 'ZIP/Postal Code'),
                   onSubmitted: (value) {
@@ -164,7 +164,7 @@ class _StandardSettingsState extends State<StandardSettings> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+        padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
         child: Text(
             '${context.read<UserVehicle>().year} ${context.read<UserVehicle>().make} ${context.read<UserVehicle>().model}'
                 .toUpperCase(),
@@ -173,7 +173,7 @@ class _StandardSettingsState extends State<StandardSettings> {
       Card(
         child: Column(children: [
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -184,7 +184,7 @@ class _StandardSettingsState extends State<StandardSettings> {
           ),
           _buildLicense(),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

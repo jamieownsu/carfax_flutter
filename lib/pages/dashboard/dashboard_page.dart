@@ -15,13 +15,15 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+  final TextEditingController _textController = TextEditingController();
+  final _listItems = <Widget>[];
   bool _editingOdometer = false;
-  TextEditingController _textController;
 
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
+    _loadMaintenanceItems();
   }
 
   @override
@@ -35,7 +37,7 @@ class _DashboardPageState extends State<DashboardPage> {
       width: 80,
       child: Text(
           '${NumberFormat.decimalPattern().format(context.watch<UserVehicle>().metric ? context.watch<UserVehicle>().kilometers : context.watch<UserVehicle>().miles)}',
-          style: TextStyle(fontSize: 16, color: Colors.blue)),
+          style: const TextStyle(fontSize: 16, color: Colors.blue)),
     );
   }
 
@@ -49,11 +51,11 @@ class _DashboardPageState extends State<DashboardPage> {
         autofocus: true,
         keyboardType: TextInputType.number,
         controller: _textController,
-        style: TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16),
         maxLines: 1,
         onSubmitted: (value) {
           if (_editingOdometer) {
-            context.watch<UserVehicle>().metric
+            context.read<UserVehicle>().metric
                 ? context.read<UserVehicle>().kilometers = int.tryParse(value)
                 : context.read<UserVehicle>().miles = int.tryParse(value);
           }
@@ -71,7 +73,7 @@ class _DashboardPageState extends State<DashboardPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text('Today\'s Odometer Reading $kmMiles',
-              style: TextStyle(fontSize: 14)),
+              style: const TextStyle(fontSize: 14)),
           Row(mainAxisSize: MainAxisSize.min, children: [
             _editingOdometer ? _odoEdit() : _odoText(),
             IconButton(
@@ -81,8 +83,11 @@ class _DashboardPageState extends State<DashboardPage> {
                 color: _editingOdometer ? Colors.green : Colors.blue,
                 onPressed: () {
                   if (_editingOdometer) {
-                    context.read<UserVehicle>().kilometers =
-                        int.tryParse(_textController.value.text);
+                    context.read<UserVehicle>().metric
+                        ? context.read<UserVehicle>().kilometers =
+                            int.tryParse(_textController.value.text)
+                        : context.read<UserVehicle>().miles =
+                            int.tryParse(_textController.value.text);
                   }
                   setState(() {
                     _editingOdometer = !_editingOdometer;
@@ -96,7 +101,7 @@ class _DashboardPageState extends State<DashboardPage> {
     var account = context.watch<UserAccount>();
     var vehicle = context.watch<UserVehicle>();
     return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         IconButton(
           icon: const Icon(Icons.folder_open_sharp),
@@ -142,23 +147,41 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
+  Future<void> _loadMaintenanceItems() async {
+    final items = [
+      MaintenanceItem(const Icon(Icons.local_gas_station), 'Oil Change', 7, 8),
+      MaintenanceItem(
+          const Icon(Icons.text_snippet_rounded), 'Registration', 11, 24),
+      MaintenanceItem(
+          const Icon(Icons.miscellaneous_services_sharp), 'Tread Life', 2, 4),
+      RecallItem('No Open Recalls Reported')
+    ];
+    for (var item in items) {
+      await Future.delayed(Duration(milliseconds: 1));
+      _listItems.add(item);
+      _listKey.currentState.insertItem(_listItems.length - 1);
+    }
+  }
+
   Widget _buildServiceList() {
     return Flexible(
-      child: ListView(shrinkWrap: true, children: [
-        MaintenanceItem(
-            const Icon(Icons.local_gas_station), 'Oil Change', 7, 8),
-        MaintenanceItem(
-            const Icon(Icons.text_snippet_rounded), 'Registration', 11, 24),
-        MaintenanceItem(
-            const Icon(Icons.miscellaneous_services_sharp), 'Tread Life', 2, 4),
-        RecallItem('No Open Recalls Reported'),
-      ]),
+      child: AnimatedList(
+          key: _listKey,
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(top: 10),
+          initialItemCount: _listItems.length,
+          itemBuilder: (context, index, animation) {
+            return SizeTransition(
+                axis: Axis.vertical,
+                sizeFactor: animation,
+                child: _listItems[index]);
+          }),
     );
   }
 
   Widget _buildHelpLink() {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         const Text('Something Wrong?'),
         const Text(' Get Help', style: TextStyle(color: Colors.blue)),

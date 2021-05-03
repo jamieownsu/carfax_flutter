@@ -12,7 +12,7 @@ class _NotesState extends State<Notes> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+        padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
         child: const Text('NOTES',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
@@ -20,7 +20,7 @@ class _NotesState extends State<Notes> {
         child: TextField(
           maxLength: 2000,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(10),
+            contentPadding: const EdgeInsets.all(10),
             hintText: 'Tap here to enter notes (2000 characters max)',
             hintStyle: TextStyle(fontSize: 12),
           ),

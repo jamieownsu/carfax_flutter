@@ -16,14 +16,14 @@ class _OdometerSettingsState extends State<OdometerSettings> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+        padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
         child: const Text('ODOMETER SETTINGS',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
         child: Column(children: [
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -38,7 +38,7 @@ class _OdometerSettingsState extends State<OdometerSettings> {
                 ]),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -54,7 +54,7 @@ class _OdometerSettingsState extends State<OdometerSettings> {
                 ]),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

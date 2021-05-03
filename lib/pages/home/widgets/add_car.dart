@@ -35,7 +35,7 @@ class _AddCarPageState extends State<AddCarPage> {
           const Text('Search by VIN',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: TextFormField(
               controller: _vinTextController,
               maxLines: 1,
@@ -47,8 +47,8 @@ class _AddCarPageState extends State<AddCarPage> {
               },
               textCapitalization: TextCapitalization.characters,
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(left: 10),
-                  border: OutlineInputBorder(),
+                  contentPadding: const EdgeInsets.only(left: 10),
+                  border: const OutlineInputBorder(),
                   hintText: 'Vehicle Identification Number'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -59,18 +59,19 @@ class _AddCarPageState extends State<AddCarPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: const Text('Where can I find the VIN?',
                 style: TextStyle(color: Colors.blueAccent)),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: ElevatedButton(
                 onPressed: isVinEnabled
                     ? () {
                         if (_vinFormKey.currentState.validate()) {
                           print(_vinTextController.text);
                           PostUtility.addVehicle(context.read<UserAccount>());
+                          Navigator.pop(context);
                         }
                       }
                     : null,
@@ -84,8 +85,9 @@ class _AddCarPageState extends State<AddCarPage> {
       return Column(children: [
         SizedBox(height: 25),
         Center(
-            child: const Text('OR',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+          child: const Text('OR',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        ),
         SizedBox(height: 25)
       ]);
     }
@@ -100,7 +102,7 @@ class _AddCarPageState extends State<AddCarPage> {
           const Text('Search by License Plate',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: TextFormField(
               controller: _plateTextController,
               maxLines: 1,
@@ -111,8 +113,8 @@ class _AddCarPageState extends State<AddCarPage> {
               },
               textCapitalization: TextCapitalization.characters,
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  border: OutlineInputBorder(),
+                  contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  border: const OutlineInputBorder(),
                   hintText: 'License Plate'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -123,7 +125,7 @@ class _AddCarPageState extends State<AddCarPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Autocomplete<String>(fieldViewBuilder: (BuildContext context,
                 TextEditingController fieldTextEditingController,
                 FocusNode fieldFocusNode,
@@ -132,8 +134,8 @@ class _AddCarPageState extends State<AddCarPage> {
                 controller: fieldTextEditingController,
                 focusNode: fieldFocusNode,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    border: OutlineInputBorder(),
+                    contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    border: const OutlineInputBorder(),
                     hintText: 'State/Province'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -159,7 +161,7 @@ class _AddCarPageState extends State<AddCarPage> {
             }),
           ),
           Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: ElevatedButton(
                   onPressed: isPlateEnabled && isProvStateEnabled
                       ? () {
@@ -175,9 +177,9 @@ class _AddCarPageState extends State<AddCarPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Adding Car'), centerTitle: true),
+      appBar: AppBar(title: const Text('Adding Car'), centerTitle: true),
       body: Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
           child: Column(
             children: [_buildVinSearch(), _buildSeparator(), _buildProvState()],

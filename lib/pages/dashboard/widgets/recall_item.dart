@@ -11,7 +11,7 @@ class RecallItem extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Expanded(flex: 1, child: Icon(Icons.check)),
@@ -26,7 +26,7 @@ class RecallItem extends StatelessWidget {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 5),
                       child: Text(
                           'As of ${DateFormat('dd/MM/yyyy', 'en_US').format(DateTime.now())}'),
                     )

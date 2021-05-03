@@ -15,7 +15,9 @@ class MainPage extends StatelessWidget {
       title: 'Carfax Demo',
       theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.dark),
       home: ChangeNotifierProvider(
-          create: (_) => UserAccount(), child: HomePage()),
+        create: (_) => UserAccount(),
+        child: HomePage(),
+      ),
     );
   }
 }

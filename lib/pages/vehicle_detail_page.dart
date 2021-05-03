@@ -16,8 +16,7 @@ class VehicleDetailPage extends StatefulWidget {
 }
 
 class _VehicleDetailPageState extends State<VehicleDetailPage> {
-  final PageController _pageController =
-      PageController(initialPage: 0, keepPage: true);
+  final PageController _pageController = PageController(initialPage: 0);
   bool _loading = true;
   int _selectedIndex = 0;
 
@@ -38,10 +37,6 @@ class _VehicleDetailPageState extends State<VehicleDetailPage> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
-  }
-
-  void pageIndexCallback(int idx) {
-    setState(() => _selectedIndex = idx);
   }
 
   @override

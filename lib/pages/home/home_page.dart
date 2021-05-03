@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                 'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
           ),
           title: Text('${vehicle.year} ${vehicle.make} ${vehicle.model}'),
-          trailing: Icon(Icons.arrow_right),
+          trailing: const Icon(Icons.arrow_right),
           onTap: () {
             Navigator.push(
                 context,
@@ -51,84 +51,92 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildDismissible(int index) {
+    var vehicle = context.watch<UserAccount>().vehicles[index];
+    return Dismissible(
+        key: Key(vehicle.vin),
+        onDismissed: (direction) {
+          setState(() {
+            context.read<UserAccount>().vehicles.removeAt(index);
+          });
+        },
+        confirmDismiss: (DismissDirection direction) async {
+          return await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: const Text('Confirm'),
+                  content: const Text(
+                      'Are you sure you wish to remove this vehicle?'),
+                  actions: <Widget>[
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: const Text('CONFIRM')),
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: const Text('CANCEL')),
+                  ]);
+            },
+          );
+        },
+        direction: DismissDirection.endToStart,
+        background: Container(
+          padding: const EdgeInsets.only(right: 20.0),
+          color: Colors.red,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.delete, color: Colors.white),
+              label: Text('Delete',
+                  style: const TextStyle(fontSize: 16, color: Colors.white)),
+            ),
+          ),
+        ),
+        child: _buildCard(context.watch<UserAccount>(), vehicle));
+  }
+
   Widget _buildVehicleList() {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: context.watch<UserAccount>().vehicles.length,
-        itemBuilder: (context, index) {
-          final vehicle = context.watch<UserAccount>().vehicles[index];
-          return Dismissible(
-              key: Key(vehicle.vin),
-              onDismissed: (direction) {
-                setState(() {
-                  context.read<UserAccount>().vehicles.removeAt(index);
-                });
-              },
-              confirmDismiss: (DismissDirection direction) async {
-                return await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        title: const Text('Confirm'),
-                        content: const Text(
-                            'Are you sure you wish to remove this vehicle?'),
-                        actions: <Widget>[
-                          TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text('CONFIRM')),
-                          TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text('CANCEL')),
-                        ]);
-                  },
-                );
-              },
-              direction: DismissDirection.endToStart,
-              background: Container(
-                padding: EdgeInsets.only(right: 20.0),
-                color: Colors.red,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.delete, color: Colors.white),
-                    label: Text('Delete',
-                        style: TextStyle(fontSize: 16, color: Colors.white)),
-                  ),
+    return Flexible(
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: context.watch<UserAccount>().vehicles.length,
+          itemBuilder: (context, index) {
+            return _buildDismissible(index);
+          }),
+    );
+  }
+
+  Widget _buildAddCarButton() {
+    return Card(
+      child: TextButton.icon(
+        onPressed: () {
+          var account = context.read<UserAccount>();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => ChangeNotifierProvider.value(
+                  value: account,
+                  child: AddCarPage(),
                 ),
-              ),
-              child: _buildCard(context.watch<UserAccount>(), vehicle));
-        });
+              ));
+        },
+        icon: const Icon(Icons.directions_car_sharp),
+        label: const Text('Add a Car', style: TextStyle(fontSize: 16)),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Garage'), centerTitle: true),
+      appBar: AppBar(title: const Text('Garage'), centerTitle: true),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              Flexible(child: _buildVehicleList()),
-              Card(
-                child: TextButton.icon(
-                  onPressed: () {
-                    var account = context.read<UserAccount>();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (context) => ChangeNotifierProvider.value(
-                            value: account,
-                            child: AddCarPage(),
-                          ),
-                        ));
-                  },
-                  icon: const Icon(Icons.directions_car_sharp),
-                  label:
-                      const Text('Add a Car', style: TextStyle(fontSize: 16)),
-                ),
-              ),
-            ]),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [_buildVehicleList(), _buildAddCarButton()]),
     );
   }
 }
