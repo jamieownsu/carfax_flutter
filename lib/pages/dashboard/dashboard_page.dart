@@ -68,11 +68,11 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildOdometerEditor() {
-    var kmMiles = context.watch<UserVehicle>().metric ? '(KM)' : '(MI)';
+    var metric = context.watch<UserVehicle>().metric;
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Today\'s Odometer Reading $kmMiles',
+          Text('Today\'s Odometer Reading ${metric ? '(KM)' : '(MI)'}',
               style: const TextStyle(fontSize: 14)),
           Row(mainAxisSize: MainAxisSize.min, children: [
             _editingOdometer ? _odoEdit() : _odoText(),
@@ -83,7 +83,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 color: _editingOdometer ? Colors.green : Colors.blue,
                 onPressed: () {
                   if (_editingOdometer) {
-                    context.read<UserVehicle>().metric
+                    metric
                         ? context.read<UserVehicle>().kilometers =
                             int.tryParse(_textController.value.text)
                         : context.read<UserVehicle>().miles =
