@@ -2,6 +2,7 @@ import 'package:carfax/data/account.dart';
 import 'package:carfax/pages/glovebox/dropdowns/distance_driven_dropdown.dart';
 import 'package:carfax/pages/glovebox/dropdowns/km_miles_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class OdometerSettings extends StatefulWidget {
@@ -31,10 +32,8 @@ class _OdometerSettingsState extends State<OdometerSettings> {
                       'Today\'s Odometer Reading ${context.watch<UserVehicle>().metric ? '(KM)' : '(MI)'}',
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(
-                      context.watch<UserVehicle>().metric
-                          ? context.watch<UserVehicle>().kilometers.toString()
-                          : context.watch<UserVehicle>().miles.toString(),
-                      style: TextStyle(color: Colors.blueAccent))
+                      '${NumberFormat.decimalPattern().format(context.watch<UserVehicle>().metric ? context.watch<UserVehicle>().kilometers : context.watch<UserVehicle>().miles)}',
+                      style: const TextStyle(color: Colors.blueAccent))
                 ]),
           ),
           Padding(

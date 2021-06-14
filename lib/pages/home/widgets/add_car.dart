@@ -16,7 +16,9 @@ class _AddCarPageState extends State<AddCarPage> {
       _plateProvStateFormKey = GlobalKey<FormState>();
   final TextEditingController _vinTextController = TextEditingController(),
       _plateTextController = TextEditingController();
-  var isVinEnabled = false, isPlateEnabled = false, isProvStateEnabled = false;
+  var _isVinEnabled = false,
+      _isPlateEnabled = false,
+      _isProvStateEnabled = false;
 
   @override
   void dispose() {
@@ -40,10 +42,9 @@ class _AddCarPageState extends State<AddCarPage> {
               controller: _vinTextController,
               maxLines: 1,
               maxLength: 17,
-              onChanged: (String value) async {
-                setState(() {
-                  isVinEnabled = value.length == 17 ? true : false;
-                });
+              onChanged: (String value) {
+                setState(
+                    () => _isVinEnabled = value.length == 17 ? true : false);
               },
               textCapitalization: TextCapitalization.characters,
               decoration: InputDecoration(
@@ -53,6 +54,9 @@ class _AddCarPageState extends State<AddCarPage> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a VIN';
+                }
+                if (value.length < 17) {
+                  return 'Please enter a valid VIN';
                 }
                 return null;
               },
@@ -66,7 +70,7 @@ class _AddCarPageState extends State<AddCarPage> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: ElevatedButton(
-                onPressed: isVinEnabled
+                onPressed: _isVinEnabled
                     ? () {
                         if (_vinFormKey.currentState.validate()) {
                           print(_vinTextController.text);
@@ -106,10 +110,9 @@ class _AddCarPageState extends State<AddCarPage> {
             child: TextFormField(
               controller: _plateTextController,
               maxLines: 1,
-              onChanged: (String value) async {
-                setState(() {
-                  isPlateEnabled = value.length > 2 ? true : false;
-                });
+              onChanged: (String value) {
+                setState(
+                    () => _isPlateEnabled = value.length > 2 ? true : false);
               },
               textCapitalization: TextCapitalization.characters,
               decoration: InputDecoration(
@@ -146,10 +149,8 @@ class _AddCarPageState extends State<AddCarPage> {
                 },
               );
             }, optionsBuilder: (TextEditingValue textEditingValue) {
-              setState(() {
-                isProvStateEnabled =
-                    list.contains(textEditingValue.text) ? true : false;
-              });
+              setState(() => _isProvStateEnabled =
+                  list.contains(textEditingValue.text) ? true : false);
               if (textEditingValue.text == '') {
                 return const Iterable<String>.empty();
               }
@@ -163,7 +164,7 @@ class _AddCarPageState extends State<AddCarPage> {
           Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: ElevatedButton(
-                  onPressed: isPlateEnabled && isProvStateEnabled
+                  onPressed: _isPlateEnabled && _isProvStateEnabled
                       ? () {
                           if (_plateProvStateFormKey.currentState.validate()) {
                             print('${_plateTextController.text} $stateProv');

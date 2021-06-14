@@ -43,8 +43,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _odoEdit() {
     _textController.text = context.watch<UserVehicle>().metric
-        ? context.watch<UserVehicle>().kilometers.toString()
-        : context.watch<UserVehicle>().miles.toString() ?? '';
+        ? context.read<UserVehicle>().kilometers.toString()
+        : context.read<UserVehicle>().miles.toString() ?? '';
     return SizedBox(
       width: 80,
       child: TextField(
@@ -98,8 +98,8 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildOpenGlovebox() {
-    var account = context.watch<UserAccount>();
-    var vehicle = context.watch<UserVehicle>();
+    var account = context.read<UserAccount>();
+    var vehicle = context.read<UserVehicle>();
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -138,8 +138,7 @@ class _DashboardPageState extends State<DashboardPage> {
               height: 100,
               width: 100,
               fit: BoxFit.contain,
-              image:
-                  'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
+              image: context.read<UserVehicle>().imageURL,
             ),
             _buildOdometerEditor(),
             _buildOpenGlovebox(),

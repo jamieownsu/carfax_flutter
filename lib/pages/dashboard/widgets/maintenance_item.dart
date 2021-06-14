@@ -13,23 +13,23 @@ class MaintenanceItem extends StatefulWidget {
 
 class _MaintenanceItemState extends State<MaintenanceItem>
     with TickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController _controller;
 
   @override
   void initState() {
-    controller = AnimationController(
+    _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
     )..addListener(() {
         setState(() {});
       });
-    controller.animateTo(1 - (widget.durationLeft / widget.durationTotal));
+    _controller.animateTo(1 - (widget.durationLeft / widget.durationTotal));
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -37,7 +37,6 @@ class _MaintenanceItemState extends State<MaintenanceItem>
   Widget build(BuildContext context) {
     var durationText = widget.title == 'Tread Life' ? 'Year' : 'Month';
     durationText += widget.durationLeft > 1 ? 's' : '';
-
     return Column(children: [
       Padding(
         padding: const EdgeInsets.all(10),
@@ -47,14 +46,12 @@ class _MaintenanceItemState extends State<MaintenanceItem>
             flex: 5,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                widget.title,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              Text(widget.title,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
               Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: LinearProgressIndicator(value: controller.value),
+                child: LinearProgressIndicator(value: _controller.value),
               )
             ]),
           ),
@@ -62,10 +59,7 @@ class _MaintenanceItemState extends State<MaintenanceItem>
             flex: 3,
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               Text(widget.durationLeft.toString()),
-              Text(
-                '$durationText Left',
-                style: const TextStyle(fontSize: 12),
-              )
+              Text('$durationText Left', style: const TextStyle(fontSize: 12))
             ]),
           ),
           Expanded(flex: 0, child: const Icon(Icons.arrow_right))

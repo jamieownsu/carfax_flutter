@@ -2,16 +2,18 @@ import 'dart:convert';
 import 'package:carfax/data/account.dart';
 import 'package:carfax/json/account_json.dart';
 import 'package:carfax/json/vehicle_details_json.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class GetUtility {
-  static Future<void> getAccount(UserAccount userAccount) async {
+  static Future<void> getAccount(BuildContext context) async {
     try {
       var data = await rootBundle.loadString('assets/data/account.json');
       var account = await compute(parseAccountJson, data);
-      userAccount.email = account.email;
-      userAccount.isCanadian = account.isCanadian;
+      context.read<UserAccount>().email = account.email;
+      context.read<UserAccount>().isCanadian = account.isCanadian;
       account.vehicles.forEach((element) {
         var userVehicle = UserVehicle();
         userVehicle.make = element.make;
@@ -25,7 +27,7 @@ class GetUtility {
         userVehicle.metric = element.metric;
         userVehicle.kilometers = element.lastOdoKm;
         userVehicle.miles = element.lastOdoMileage;
-        userAccount.vehicles.add(userVehicle);
+        context.read<UserAccount>().vehicles.add(userVehicle);
       });
     } catch (e, s) {
       print('$e $s');

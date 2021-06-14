@@ -20,21 +20,19 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    GetUtility.getAccount(context.read<UserAccount>()).then((value) {
-      setState(() {
-        _loading = false;
-      });
+    GetUtility.getAccount(context).then((value) {
+      setState(() => _loading = false);
     });
   }
 
-  Widget _buildCard(UserAccount account, UserVehicle vehicle) {
+  Widget _buildCard(UserVehicle vehicle) {
+    var account = context.read<UserAccount>();
     return Card(
       child: ListTile(
           contentPadding: EdgeInsets.all(10),
           leading: FadeInImage.memoryNetwork(
             placeholder: kTransparentImage,
-            image:
-                'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
+            image: vehicle.imageURL,
           ),
           title: Text('${vehicle.year} ${vehicle.make} ${vehicle.model}'),
           trailing: const Icon(Icons.arrow_right),
@@ -52,13 +50,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildDismissible(int index) {
-    var vehicle = context.watch<UserAccount>().vehicles[index];
+    var vehicle = context.read<UserAccount>().vehicles[index];
     return Dismissible(
         key: Key(vehicle.vin),
         onDismissed: (direction) {
-          setState(() {
-            context.read<UserAccount>().vehicles.removeAt(index);
-          });
+          setState(() => context.read<UserAccount>().vehicles.removeAt(index));
         },
         confirmDismiss: (DismissDirection direction) async {
           return await showDialog(
@@ -93,7 +89,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        child: _buildCard(context.watch<UserAccount>(), vehicle));
+        child: _buildCard(vehicle));
   }
 
   Widget _buildVehicleList() {
@@ -108,19 +104,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildAddCarButton() {
+    var account = context.read<UserAccount>();
     return Card(
       child: TextButton.icon(
         onPressed: () {
-          var account = context.read<UserAccount>();
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (context) => ChangeNotifierProvider.value(
-                  value: account,
-                  child: AddCarPage(),
-                ),
-              ));
+            context,
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => ChangeNotifierProvider.value(
+                value: account,
+                child: AddCarPage(),
+              ),
+            ),
+          );
         },
         icon: const Icon(Icons.directions_car_sharp),
         label: const Text('Add a Car', style: TextStyle(fontSize: 16)),

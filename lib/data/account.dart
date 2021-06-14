@@ -22,6 +22,8 @@ class UserVehicle with ChangeNotifier {
   String make,
       model,
       year,
+      imageURL =
+          'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
       _licensePlate,
       vin,
       vehicleDescription,

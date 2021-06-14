@@ -49,16 +49,12 @@ class _StandardSettingsState extends State<StandardSettings> {
                   onSubmitted: (value) {
                     context.read<UserVehicle>().licensePlate =
                         value.toUpperCase();
-                    setState(() {
-                      _editLicense = false;
-                    });
+                    setState(() => _editLicense = false);
                   },
                 )
               : InkWell(
                   onTap: () {
-                    setState(() {
-                      _editLicense = true;
-                    });
+                    setState(() => _editLicense = true);
                   },
                   child: Text(context.watch<UserVehicle>().licensePlate,
                       style: TextStyle(color: Colors.blueAccent)),
@@ -93,20 +89,14 @@ class _StandardSettingsState extends State<StandardSettings> {
                       labelText: 'Nickname'),
                   onSubmitted: (value) {
                     context.read<UserVehicle>().nickname = value;
-                    setState(() {
-                      _editNickname = false;
-                    });
+                    setState(() => _editNickname = false);
                   },
                 ),
               )
             : Expanded(
                 flex: 1,
                 child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      _editNickname = true;
-                    });
-                  },
+                  onTap: () => setState(() => _editNickname = true),
                   child: Text(context.watch<UserVehicle>().nickname,
                       style: TextStyle(color: Colors.blueAccent),
                       textAlign: TextAlign.right),
@@ -137,9 +127,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                       labelText: 'ZIP/Postal Code'),
                   onSubmitted: (value) {
                     context.read<UserVehicle>().postalCode = value;
-                    setState(() {
-                      _editPostal = false;
-                    });
+                    setState(() => _editPostal = false);
                   },
                 ),
               )
@@ -147,9 +135,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                 flex: 1,
                 child: InkWell(
                   onTap: () {
-                    setState(() {
-                      _editPostal = true;
-                    });
+                    setState(() => _editPostal = true);
                   },
                   child: Text(context.watch<UserVehicle>().postalCode,
                       style: TextStyle(color: Colors.blueAccent),
