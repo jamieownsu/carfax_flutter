@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:carfax/data/account.dart';
 import 'package:carfax/json/account_json.dart';
 import 'package:flutter/foundation.dart';
@@ -15,8 +16,7 @@ class PostUtility {
       userVehicle.year = accountJson.vehicles[0].year;
       userVehicle.licensePlate = accountJson.vehicles[0].licensePlate;
       userVehicle.vin = accountJson.vehicles[0].vin;
-      userVehicle.vehicleDescription =
-          accountJson.vehicles[0].vehicleDescription;
+      userVehicle.vehicleDescription = accountJson.vehicles[0].vehicleDescription;
       userVehicle.nickname = accountJson.vehicles[0].nickname;
       userVehicle.postalCode = accountJson.vehicles[0].postalCode;
       userVehicle.metric = accountJson.vehicles[0].metric;
@@ -25,11 +25,11 @@ class PostUtility {
       userAccount.add(userVehicle);
     } catch (e, s) {
       print('$e $s');
-      return null;
+      return;
     }
   }
 
-  static AccountJson parseAccountJson(String data) {
-    return AccountJson.fromJson(json.decode(data));
+  static AccountData parseAccountJson(String data) {
+    return AccountData.fromJson(json.decode(data));
   }
 }

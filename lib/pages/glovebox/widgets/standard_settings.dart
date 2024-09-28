@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StandardSettings extends StatefulWidget {
-  StandardSettings({Key key}) : super(key: key);
+  const StandardSettings({super.key});
 
   @override
   _StandardSettingsState createState() => _StandardSettingsState();
@@ -27,28 +27,22 @@ class _StandardSettingsState extends State<StandardSettings> {
   Widget _buildLicense() {
     _licenseTextController.text = context.watch<UserVehicle>().licensePlate;
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Expanded(
+        const Expanded(
           flex: 1,
-          child: const Text('Plate',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          child: Text('Plate', style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         Expanded(
           flex: 2,
-          child: context.watch<UserVehicle>().licensePlate.isEmpty ||
-                  _editLicense
+          child: context.watch<UserVehicle>().licensePlate.isEmpty || _editLicense
               ? TextField(
                   controller: _licenseTextController,
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                   maxLines: 1,
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      border: OutlineInputBorder(),
-                      labelText: 'License plate'),
+                  decoration: const InputDecoration(contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0), border: OutlineInputBorder(), labelText: 'License plate'),
                   onSubmitted: (value) {
-                    context.read<UserVehicle>().licensePlate =
-                        value.toUpperCase();
+                    context.read<UserVehicle>().licensePlate = value.toUpperCase();
                     setState(() => _editLicense = false);
                   },
                 )
@@ -56,15 +50,10 @@ class _StandardSettingsState extends State<StandardSettings> {
                   onTap: () {
                     setState(() => _editLicense = true);
                   },
-                  child: Text(context.watch<UserVehicle>().licensePlate,
-                      style: TextStyle(color: Colors.blueAccent)),
+                  child: Text(context.watch<UserVehicle>().licensePlate, style: const TextStyle(color: Colors.blueAccent)),
                 ),
         ),
-        Expanded(
-            flex: 2,
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: ProvinceStateDropdown()))
+        const Expanded(flex: 2, child: Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0), child: ProvinceStateDropdown()))
       ]),
     );
   }
@@ -75,18 +64,15 @@ class _StandardSettingsState extends State<StandardSettings> {
       padding: const EdgeInsets.all(10),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         const Text('Nickname', style: TextStyle(fontWeight: FontWeight.bold)),
-        Expanded(flex: 2, child: SizedBox()),
+        const Expanded(flex: 2, child: SizedBox()),
         context.watch<UserVehicle>().nickname.isEmpty || _editNickname
             ? Expanded(
                 flex: 2,
                 child: TextField(
                   controller: _nicknameTextController,
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                   maxLines: 1,
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      border: OutlineInputBorder(),
-                      labelText: 'Nickname'),
+                  decoration: const InputDecoration(contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0), border: OutlineInputBorder(), labelText: 'Nickname'),
                   onSubmitted: (value) {
                     context.read<UserVehicle>().nickname = value;
                     setState(() => _editNickname = false);
@@ -97,9 +83,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                 flex: 1,
                 child: InkWell(
                   onTap: () => setState(() => _editNickname = true),
-                  child: Text(context.watch<UserVehicle>().nickname,
-                      style: TextStyle(color: Colors.blueAccent),
-                      textAlign: TextAlign.right),
+                  child: Text(context.watch<UserVehicle>().nickname, style: const TextStyle(color: Colors.blueAccent), textAlign: TextAlign.right),
                 ),
               )
       ]),
@@ -111,20 +95,17 @@ class _StandardSettingsState extends State<StandardSettings> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const Text('ZIP/Postal Code',
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        Expanded(flex: 2, child: SizedBox()),
+        const Text('ZIP/Postal Code', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Expanded(flex: 2, child: SizedBox()),
         context.watch<UserVehicle>().postalCode.isEmpty || _editPostal
             ? Expanded(
                 flex: 2,
                 child: TextField(
                   controller: _postalTextController,
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                   maxLines: 1,
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      border: OutlineInputBorder(),
-                      labelText: 'ZIP/Postal Code'),
+                  decoration:
+                      const InputDecoration(contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0), border: OutlineInputBorder(), labelText: 'ZIP/Postal Code'),
                   onSubmitted: (value) {
                     context.read<UserVehicle>().postalCode = value;
                     setState(() => _editPostal = false);
@@ -137,9 +118,7 @@ class _StandardSettingsState extends State<StandardSettings> {
                   onTap: () {
                     setState(() => _editPostal = true);
                   },
-                  child: Text(context.watch<UserVehicle>().postalCode,
-                      style: TextStyle(color: Colors.blueAccent),
-                      textAlign: TextAlign.right),
+                  child: Text(context.watch<UserVehicle>().postalCode, style: const TextStyle(color: Colors.blueAccent), textAlign: TextAlign.right),
                 ),
               )
       ]),
@@ -151,10 +130,8 @@ class _StandardSettingsState extends State<StandardSettings> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
-        child: Text(
-            '${context.read<UserVehicle>().year} ${context.read<UserVehicle>().make} ${context.read<UserVehicle>().model}'
-                .toUpperCase(),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        child: Text('${context.read<UserVehicle>().year} ${context.read<UserVehicle>().make} ${context.read<UserVehicle>().model}'.toUpperCase(),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
         child: Column(children: [
@@ -162,23 +139,15 @@ class _StandardSettingsState extends State<StandardSettings> {
             padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('VIN',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(context.read<UserVehicle>().vin)
-                ]),
+                children: [const Text('VIN', style: TextStyle(fontWeight: FontWeight.bold)), Text(context.read<UserVehicle>().vin)]),
           ),
           _buildLicense(),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Trim',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(context.watch<UserVehicle>().bodyTypeDescription,
-                      style: TextStyle(color: Colors.blueAccent))
-                ]),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              const Text('Trim', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(context.watch<UserVehicle>().bodyTypeDescription, style: const TextStyle(color: Colors.blueAccent))
+            ]),
           ),
           _buildNickname(),
           _buildPostalCode(),

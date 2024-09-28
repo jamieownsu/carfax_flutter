@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HistoryPage extends StatefulWidget {
-  HistoryPage({Key key}) : super(key: key);
+  const HistoryPage({super.key});
 
   @override
   _HistoryPageState createState() => _HistoryPageState();
@@ -23,9 +23,7 @@ class _HistoryPageState extends State<HistoryPage> {
               child: Container(
                 height: 40,
                 alignment: Alignment.center,
-                child: const Text('Add Record',
-                    style: TextStyle(fontSize: 16, color: Colors.blue),
-                    textAlign: TextAlign.center),
+                child: const Text('Add Record', style: TextStyle(fontSize: 16, color: Colors.blue), textAlign: TextAlign.center),
               ),
             ),
             TableCell(
@@ -33,9 +31,7 @@ class _HistoryPageState extends State<HistoryPage> {
               child: Container(
                 height: 40,
                 alignment: Alignment.center,
-                child: const Text('Invite Shop',
-                    style: TextStyle(fontSize: 16, color: Colors.blue),
-                    textAlign: TextAlign.center),
+                child: const Text('Invite Shop', style: TextStyle(fontSize: 16, color: Colors.blue), textAlign: TextAlign.center),
               ),
             ),
           ]),
@@ -50,31 +46,18 @@ class _HistoryPageState extends State<HistoryPage> {
         padding: const EdgeInsets.all(10),
         child: Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(item.shopName,
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20)),
-                  SizedBox(height: 20),
-                  Text(
-                      '${item.date}  -  ${metric ? item.kmAtService + ' km' : item.miAtService + ' mi'}',
-                      style: TextStyle(fontSize: 14)),
-                  SizedBox(height: 10),
-                  const Text('Services Completed',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 10),
-                  Text(item.servicePerformed, style: TextStyle(fontSize: 16))
-                ]),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: const Center(child: Icon(Icons.arrow_right)))
+            Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Text(item.shopName, style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 20)),
+              const SizedBox(height: 20),
+              Text('${item.date}  -  ${metric ? '${item.kmAtService} km' : '${item.miAtService} mi'}', style: const TextStyle(fontSize: 14)),
+              const SizedBox(height: 10),
+              const Text('Services Completed', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              Text(item.servicePerformed, style: const TextStyle(fontSize: 16))
+            ]),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0), child: Center(child: Icon(Icons.arrow_right)))
           ]),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             OutlinedButton.icon(
               onPressed: () {},
@@ -95,7 +78,7 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget _buildServiceRecordList() {
     return Expanded(
         child: FutureBuilder(
-      future: GetUtility.getShopRecords(),
+      future: GetUtility().getShopRecords(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -106,9 +89,9 @@ class _HistoryPageState extends State<HistoryPage> {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
               return ListView.builder(
-                  itemCount: snapshot.data.length,
+                  itemCount: snapshot.data?.length,
                   itemBuilder: (context, index) {
-                    return _buildCard(snapshot.data[index]);
+                    return _buildCard(snapshot.data![index]);
                   });
             }
         }

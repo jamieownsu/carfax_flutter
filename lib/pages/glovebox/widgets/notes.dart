@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Notes extends StatefulWidget {
-  Notes({Key key}) : super(key: key);
+  const Notes({super.key});
 
   @override
   _NotesState createState() => _NotesState();
@@ -10,17 +10,16 @@ class Notes extends StatefulWidget {
 class _NotesState extends State<Notes> {
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
-        child: const Text('NOTES',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+        child: Text('NOTES', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
         child: TextField(
           maxLength: 2000,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(10),
+            contentPadding: EdgeInsets.all(10),
             hintText: 'Tap here to enter notes (2000 characters max)',
             hintStyle: TextStyle(fontSize: 12),
           ),

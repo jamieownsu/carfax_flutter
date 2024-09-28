@@ -1,185 +1,187 @@
 {
-    "accountAttributes": [],
-    "accountCreationDate": "2020-08-07T15:28:48Z",
-    "agree": true,
-    "consumerSignup": {
-        "account": {
-            "_ref": "..",
-            "class": "com.carfax.Account"
-        },
-        "compCode": "",
-        "id": 25190841,
-        "salesForceId": "Not provided",
-        "type": "SSO"
+    "accountAttributes":[
+       
+    ],
+    "accountCreationDate":"2020-08-07T15:28:48Z",
+    "agree":true,
+    "consumerSignup":{
+       "compCode":"",
+       "id":25190841,
+       "salesForceId":"Not provided",
+       "type":"SSO"
     },
-    "email": "JAMIE.A.OTOOLE@GMAIL.COM",
-    "facebookId": "",
-    "favoriteShopCompCode": "",
-    "firstName": "",
-    "forcedOneAccount": "",
-    "fraudAccount": "",
-    "fraudAccountWatch": [
-        {
-            "account": {
-                "_ref": "../..",
-                "class": "com.carfax.Account"
-            },
-            "createDate": "2021-04-19T20:32:33Z",
-            "id": 82181,
-            "vin": "3KPFK4A71HE068804"
-        },
-        {
-            "account": {
-                "_ref": "../..",
-                "class": "com.carfax.Account"
-            },
-            "createDate": "2021-04-19T20:35:59Z",
-            "id": 82191,
-            "vin": "4T1CA30P46U095250"
-        },
-        {
-            "account": {
-                "_ref": "../..",
-                "class": "com.carfax.Account"
-            },
-            "createDate": "2021-04-19T20:08:53Z",
-            "id": 82151,
-            "vin": "5J8TC2H72LL029344"
-        },
-        {
-            "account": {
-                "_ref": "../..",
-                "class": "com.carfax.Account"
-            },
-            "createDate": "2021-04-13T14:25:05Z",
-            "id": 80421,
-            "vin": "WAUANAF49HN060568"
-        }
+    "email":"JAMIE.A.OTOOLE@GMAIL.COM",
+    "facebookId":"",
+    "favoriteShopCompCode":"",
+    "firstName":"",
+    "forcedOneAccount":"",
+    "fraudAccount":"",
+    "fraudAccountWatch":[
+       {
+          "createDate":"2021-04-19T20:32:33Z",
+          "id":82181,
+          "vin":"3KPFK4A71HE068804"
+       },
+       {
+          "createDate":"2021-04-19T20:35:59Z",
+          "id":82191,
+          "vin":"4T1CA30P46U095250"
+       },
+       {
+          "createDate":"2021-04-19T20:08:53Z",
+          "id":82151,
+          "vin":"5J8TC2H72LL029344"
+       },
+       {
+          "createDate":"2021-04-13T14:25:05Z",
+          "id":80421,
+          "vin":"WAUANAF49HN060568"
+       }
     ],
-    "id": 55960141,
-    "isCanadian": false,
-    "language": "EN",
-    "maxAddedVehiclesCount": 10,
-    "maxVehiclesCount": 8,
-    "newPassword": "",
-    "oneAccountId": 62530791,
-    "partnerId": "",
-    "postalCode": "31209",
-    "signUp": "",
-    "suggestedVINs": [],
-    "token": "",
-    "type": "",
-    "vehicles": [
-        {
-            "alertCount": 1,
-            "attributes": [
-                {
-                    "fieldName": "recallCount",
-                    "fieldValue": "0",
-                    "id": 10025441
-                },
-                {
-                    "fieldName": "fuelEfficiency",
-                    "fieldValue": "0.0",
-                    "id": 10025451
-                },
-                {
-                    "fieldName": "fuelType",
-                    "fieldValue": "Flexible fuel",
-                    "id": 10025461
-                },
-                {
-                    "fieldName": "lastOwnershipDate",
-                    "fieldValue": "Wed Dec 05 00:00:00 CST 2018",
-                    "id": 10025471
-                },
-                {
-                    "fieldName": "changeOfOwnership",
-                    "fieldValue": "Wed Aug 12 11:52:12 CDT 2020",
-                    "id": 10025481
-                },
-                {
-                    "fieldName": "alertCount",
-                    "fieldValue": "1",
-                    "id": 10025491
-                },
-                {
-                    "fieldName": "hbvState",
-                    "fieldValue": "DISABLED_BY_CARFAX",
-                    "id": 10025501
-                }
-            ],
-            "averageKmPerDay": 19.4575342466,
-            "averageMilesPerDay": 12.0904109589,
-            "avgDistanceSource": "CARFAX",
-            "avgKmPerYear": 7102,
-            "avgMilesPerYear": 4413,
-            "bodyTypeDescription": "",
-            "confirmedServiceDate": "",
-            "createDate": "2020-08-12T16:52:06Z",
-            "displayRecords": [],
-            "driveline": "",
-            "engineInformation": "",
-            "estimatedCurrentKm": 38764,
-            "estimatedCurrentMileage": 24087,
-            "events": [],
-            "favoriteShops": [],
-            "id": 95921571,
-            "lastModDate": "",
-            "lastOdoDate": "2021-04-20T05:00:00Z",
-            "lastOdoKm": 38648,
-            "lastOdoMileage": 24015,
-            "lastOdoSource": "CARFAX",
-            "lastOwnershipDate": "2018-12-05T06:00:00Z",
-            "licensePlate": "",
-            "make": "AUDI",
-            "metric": true,
-            "model": "A3 PRESTIGE",
-            "nickname": "",
-            "numberOfAfterMarketServiceRecords": 0,
-            "numberOfDealerServiceRecords": 0,
-            "numberOfDisplayableRecords": 0,
-            "numberOfRecallRecords": 0,
-            "numberOfServiceRecords": 9,
-            "pickListShops": [],
-            "postalCode": "N6A2N8",
-            "recallDataDisplayable": "",
-            "recallDismissals": [],
-            "recentShops": [],
-            "serviceScheduleIdentifier": {
-                "cylinders": "",
-                "engineBaseId": 5827,
-                "engineDesignationId": 0,
-                "fuelType": "",
-                "id": 2374491,
-                "liter": "",
-                "modelName": "",
-                "submodelId": 2230,
-                "submodelName": "",
-                "vinSelectPattern": "WAUFFRFF_F1______"
-            },
-            "severeEvents": [],
-            "signupType": "",
-            "socialSharingDescription": "AUDI",
-            "submodelSelected": true,
-            "suggestedShops": [],
-            "tradeInLeads": "",
-            "userEventIntervals": [
-                {
-                    "dayInterval": 365,
-                    "eventType": "REG",
-                    "id": 1797581,
-                    "kmInterval": "",
-                    "mileageInterval": "",
-                    "monthInterval": ""
-                }
-            ],
-            "vehicleDescription": "2015 AUDI A3 PRESTIGE",
-            "vehiclePhotos": [],
-            "vin": "WAUFFRFF4F1065281",
-            "wellMaintainedBadge": "",
-            "year": "2015"
-        }
+    "id":55960141,
+    "isCanadian":false,
+    "language":"EN",
+    "maxAddedVehiclesCount":10,
+    "maxVehiclesCount":8,
+    "newPassword":"",
+    "oneAccountId":62530791,
+    "partnerId":"",
+    "postalCode":"31209",
+    "signUp":"",
+    "suggestedVINs":[
+       
     ],
-    "verifyEmail": ""
-}
+    "token":"",
+    "type":"",
+    "vehicles":[
+       {
+          "alertCount":1,
+          "attributes":[
+             {
+                "fieldName":"recallCount",
+                "fieldValue":"0",
+                "id":10025441
+             },
+             {
+                "fieldName":"fuelEfficiency",
+                "fieldValue":"0.0",
+                "id":10025451
+             },
+             {
+                "fieldName":"fuelType",
+                "fieldValue":"Flexible fuel",
+                "id":10025461
+             },
+             {
+                "fieldName":"lastOwnershipDate",
+                "fieldValue":"Wed Dec 05 00:00:00 CST 2018",
+                "id":10025471
+             },
+             {
+                "fieldName":"changeOfOwnership",
+                "fieldValue":"Wed Aug 12 11:52:12 CDT 2020",
+                "id":10025481
+             },
+             {
+                "fieldName":"alertCount",
+                "fieldValue":"1",
+                "id":10025491
+             },
+             {
+                "fieldName":"hbvState",
+                "fieldValue":"DISABLED_BY_CARFAX",
+                "id":10025501
+             }
+          ],
+          "averageKmPerDay":19.4575342466,
+          "averageMilesPerDay":12.0904109589,
+          "avgDistanceSource":"CARFAX",
+          "avgKmPerYear":7102,
+          "avgMilesPerYear":4413,
+          "bodyTypeDescription":"",
+          "confirmedServiceDate":"",
+          "createDate":"2020-08-12T16:52:06Z",
+          "displayRecords":[
+             
+          ],
+          "driveline":"",
+          "engineInformation":"",
+          "estimatedCurrentKm":38764,
+          "estimatedCurrentMileage":24087,
+          "events":[
+             
+          ],
+          "favoriteShops":[
+             
+          ],
+          "id":95921571,
+          "lastModDate":"",
+          "lastOdoDate":"2021-04-20T05:00:00Z",
+          "lastOdoKm":38648,
+          "lastOdoMileage":24015,
+          "lastOdoSource":"CARFAX",
+          "lastOwnershipDate":"2018-12-05T06:00:00Z",
+          "licensePlate":"",
+          "make":"AUDI",
+          "metric":true,
+          "model":"A3 PRESTIGE",
+          "nickname":"",
+          "numberOfAfterMarketServiceRecords":0,
+          "numberOfDealerServiceRecords":0,
+          "numberOfDisplayableRecords":0,
+          "numberOfRecallRecords":0,
+          "numberOfServiceRecords":9,
+          "pickListShops":[
+             
+          ],
+          "postalCode":"N6A2N8",
+          "recallDataDisplayable":"",
+          "recallDismissals":[
+             
+          ],
+          "recentShops":[
+             
+          ],
+          "serviceScheduleIdentifier":{
+             "cylinders":"",
+             "engineBaseId":5827,
+             "engineDesignationId":0,
+             "fuelType":"",
+             "id":2374491,
+             "liter":"",
+             "modelName":"",
+             "submodelId":2230,
+             "submodelName":"",
+             "vinSelectPattern":"WAUFFRFF_F1______"
+          },
+          "severeEvents":[
+             
+          ],
+          "signupType":"",
+          "socialSharingDescription":"AUDI",
+          "submodelSelected":true,
+          "suggestedShops":[
+             
+          ],
+          "tradeInLeads":"",
+          "userEventIntervals":[
+             {
+                "dayInterval":365,
+                "eventType":"REG",
+                "id":1797581,
+                "kmInterval":"",
+                "mileageInterval":"",
+                "monthInterval":""
+             }
+          ],
+          "vehicleDescription":"2015 AUDI A3 PRESTIGE",
+          "vehiclePhotos":[
+             
+          ],
+          "vin":"WAUFFRFF4F1065281",
+          "wellMaintainedBadge":"",
+          "year":"2015"
+       }
+    ],
+    "verifyEmail":""
+ }

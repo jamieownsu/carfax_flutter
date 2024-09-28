@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProvinceStateDropdown extends StatefulWidget {
-  ProvinceStateDropdown({Key key}) : super(key: key);
+  const ProvinceStateDropdown({super.key});
 
   @override
   _ProvinceStateDropdownState createState() => _ProvinceStateDropdownState();
@@ -17,9 +17,7 @@ class _ProvinceStateDropdownState extends State<ProvinceStateDropdown> {
   @override
   void initState() {
     super.initState();
-    data = context.read<UserAccount>().isCanadian
-        ? Regions.PROVINCES
-        : Regions.STATES;
+    data = context.read<UserAccount>().isCanadian ? Regions.PROVINCES : Regions.STATES;
     _dropdownValue = data[0];
   }
 
@@ -28,13 +26,12 @@ class _ProvinceStateDropdownState extends State<ProvinceStateDropdown> {
     return DropdownButton<String>(
       isExpanded: true,
       value: _dropdownValue,
-      style: TextStyle(fontSize: 12),
-      onChanged: (String newValue) {
-        setState(() => _dropdownValue = newValue);
+      style: const TextStyle(fontSize: 12),
+      onChanged: (newValue) {
+        setState(() => _dropdownValue = newValue!);
       },
       items: data.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-            value: value, child: Text(value, style: TextStyle(fontSize: 12)));
+        return DropdownMenuItem<String>(value: value, child: Text(value, style: const TextStyle(fontSize: 12)));
       }).toList(),
     );
   }

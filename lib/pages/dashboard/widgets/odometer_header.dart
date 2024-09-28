@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
-  DashboardPage({Key key}) : super(key: key);
+  const DashboardPage({super.key});
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -9,5 +9,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    return const SizedBox.shrink();
+  }
 }

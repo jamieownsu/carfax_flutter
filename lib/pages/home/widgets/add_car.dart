@@ -5,20 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddCarPage extends StatefulWidget {
-  AddCarPage({Key key}) : super(key: key);
+  const AddCarPage({super.key});
 
   @override
   _AddCarPageState createState() => _AddCarPageState();
 }
 
 class _AddCarPageState extends State<AddCarPage> {
-  final _vinFormKey = GlobalKey<FormState>(),
-      _plateProvStateFormKey = GlobalKey<FormState>();
-  final TextEditingController _vinTextController = TextEditingController(),
-      _plateTextController = TextEditingController();
-  var _isVinEnabled = false,
-      _isPlateEnabled = false,
-      _isProvStateEnabled = false;
+  final _vinFormKey = GlobalKey<FormState>(), _plateProvStateFormKey = GlobalKey<FormState>();
+  final TextEditingController _vinTextController = TextEditingController(), _plateTextController = TextEditingController();
+  var _isVinEnabled = false, _isPlateEnabled = false, _isProvStateEnabled = false;
 
   @override
   void dispose() {
@@ -29,13 +25,11 @@ class _AddCarPageState extends State<AddCarPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildVinSearch() {
+    Widget buildVinSearch() {
       return Form(
         key: _vinFormKey,
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          const Text('Search by VIN',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          const Text('Search by VIN', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           Padding(
             padding: const EdgeInsets.all(10),
             child: TextFormField(
@@ -43,14 +37,11 @@ class _AddCarPageState extends State<AddCarPage> {
               maxLines: 1,
               maxLength: 17,
               onChanged: (String value) {
-                setState(
-                    () => _isVinEnabled = value.length == 17 ? true : false);
+                setState(() => _isVinEnabled = value.length == 17 ? true : false);
               },
               textCapitalization: TextCapitalization.characters,
-              decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(left: 10),
-                  border: const OutlineInputBorder(),
-                  hintText: 'Vehicle Identification Number'),
+              decoration:
+                  const InputDecoration(contentPadding: EdgeInsets.only(left: 10), border: OutlineInputBorder(), hintText: 'Vehicle Identification Number'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a VIN';
@@ -62,17 +53,16 @@ class _AddCarPageState extends State<AddCarPage> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: const Text('Where can I find the VIN?',
-                style: TextStyle(color: Colors.blueAccent)),
+          const Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text('Where can I find the VIN?', style: TextStyle(color: Colors.blueAccent)),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
             child: ElevatedButton(
                 onPressed: _isVinEnabled
                     ? () {
-                        if (_vinFormKey.currentState.validate()) {
+                        if (_vinFormKey.currentState!.validate()) {
                           print(_vinTextController.text);
                           PostUtility.addVehicle(context.read<UserAccount>());
                           Navigator.pop(context);
@@ -85,40 +75,33 @@ class _AddCarPageState extends State<AddCarPage> {
       );
     }
 
-    Widget _buildSeparator() {
-      return Column(children: [
+    Widget buildSeparator() {
+      return const Column(children: [
         SizedBox(height: 25),
         Center(
-          child: const Text('OR',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          child: Text('OR', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ),
         SizedBox(height: 25)
       ]);
     }
 
-    Widget _buildProvState() {
+    Widget buildProvState() {
       var stateProv = '';
       var list = Regions.PROVINCES + Regions.STATES;
       return Form(
         key: _plateProvStateFormKey,
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          const Text('Search by License Plate',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          const Text('Search by License Plate', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: TextFormField(
               controller: _plateTextController,
               maxLines: 1,
               onChanged: (String value) {
-                setState(
-                    () => _isPlateEnabled = value.length > 2 ? true : false);
+                setState(() => _isPlateEnabled = value.length > 2 ? true : false);
               },
               textCapitalization: TextCapitalization.characters,
-              decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  border: const OutlineInputBorder(),
-                  hintText: 'License Plate'),
+              decoration: const InputDecoration(contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0), border: OutlineInputBorder(), hintText: 'License Plate'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a license plate';
@@ -129,17 +112,12 @@ class _AddCarPageState extends State<AddCarPage> {
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Autocomplete<String>(fieldViewBuilder: (BuildContext context,
-                TextEditingController fieldTextEditingController,
-                FocusNode fieldFocusNode,
-                VoidCallback onFieldSubmitted) {
+            child: Autocomplete<String>(fieldViewBuilder:
+                (BuildContext context, TextEditingController fieldTextEditingController, FocusNode fieldFocusNode, VoidCallback onFieldSubmitted) {
               return TextFormField(
                 controller: fieldTextEditingController,
                 focusNode: fieldFocusNode,
-                decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    border: const OutlineInputBorder(),
-                    hintText: 'State/Province'),
+                decoration: const InputDecoration(contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0), border: OutlineInputBorder(), hintText: 'State/Province'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please select a state/province';
@@ -149,15 +127,12 @@ class _AddCarPageState extends State<AddCarPage> {
                 },
               );
             }, optionsBuilder: (TextEditingValue textEditingValue) {
-              setState(() => _isProvStateEnabled =
-                  list.contains(textEditingValue.text) ? true : false);
+              setState(() => _isProvStateEnabled = list.contains(textEditingValue.text) ? true : false);
               if (textEditingValue.text == '') {
                 return const Iterable<String>.empty();
               }
               return list.where((String option) {
-                return option
-                    .toLowerCase()
-                    .contains(textEditingValue.text.toLowerCase());
+                return option.toLowerCase().contains(textEditingValue.text.toLowerCase());
               });
             }),
           ),
@@ -166,7 +141,7 @@ class _AddCarPageState extends State<AddCarPage> {
               child: ElevatedButton(
                   onPressed: _isPlateEnabled && _isProvStateEnabled
                       ? () {
-                          if (_plateProvStateFormKey.currentState.validate()) {
+                          if (_plateProvStateFormKey.currentState!.validate()) {
                             print('${_plateTextController.text} $stateProv');
                             PostUtility.addVehicle(context.read<UserAccount>());
                           }
@@ -183,7 +158,7 @@ class _AddCarPageState extends State<AddCarPage> {
         padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
           child: Column(
-            children: [_buildVinSearch(), _buildSeparator(), _buildProvState()],
+            children: [buildVinSearch(), buildSeparator(), buildProvState()],
           ),
         ),
       ),

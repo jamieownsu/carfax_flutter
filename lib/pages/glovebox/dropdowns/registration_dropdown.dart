@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RegistrationDropdown extends StatefulWidget {
-  RegistrationDropdown({Key key}) : super(key: key);
+  const RegistrationDropdown({super.key});
 
   @override
   _RegistrationDropdownState createState() => _RegistrationDropdownState();
@@ -14,16 +14,15 @@ class _RegistrationDropdownState extends State<RegistrationDropdown> {
     return DropdownButton<String>(
       isExpanded: true,
       value: _dropdownValue,
-      style: TextStyle(fontSize: 12),
-      onChanged: (String newValue) {
-        setState(() => _dropdownValue = newValue);
+      style: const TextStyle(fontSize: 12),
+      onChanged: (newValue) {
+        setState(() => _dropdownValue = newValue!);
       },
       items: <String>[
         'One Year',
         'Two Years',
       ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-            value: value, child: Text(value, style: TextStyle(fontSize: 12)));
+        return DropdownMenuItem<String>(value: value, child: Text(value, style: const TextStyle(fontSize: 12)));
       }).toList(),
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class KmMilesDropdown extends StatefulWidget {
-  KmMilesDropdown({Key key}) : super(key: key);
+  const KmMilesDropdown({super.key});
 
   @override
   _KmMilesDropdownState createState() => _KmMilesDropdownState();
@@ -15,18 +15,17 @@ class _KmMilesDropdownState extends State<KmMilesDropdown> {
     return DropdownButton<String>(
       isExpanded: true,
       value: context.watch<UserVehicle>().metric ? 'Kilometers' : 'Miles',
-      style: TextStyle(fontSize: 12),
-      onChanged: (String newValue) {
+      style: const TextStyle(fontSize: 12),
+      onChanged: (value) {
         setState(() {
-          context.read<UserVehicle>().metric = newValue == 'Kilometers';
+          context.read<UserVehicle>().metric = value == 'Kilometers';
         });
       },
       items: <String>[
         'Kilometers',
         'Miles',
       ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-            value: value, child: Text(value, style: TextStyle(fontSize: 12)));
+        return DropdownMenuItem<String>(value: value, child: Text(value, style: const TextStyle(fontSize: 12)));
       }).toList(),
     );
   }

@@ -2,8 +2,8 @@ import 'package:carfax/json/vehicle_details_json.dart';
 import 'package:flutter/cupertino.dart';
 
 class UserAccount with ChangeNotifier {
-  String email;
-  bool isCanadian;
+  String email = "";
+  bool isCanadian = true;
   List<UserVehicle> _vehicles = [];
 
   List<UserVehicle> get vehicles => _vehicles;
@@ -19,21 +19,21 @@ class UserAccount with ChangeNotifier {
 }
 
 class UserVehicle with ChangeNotifier {
-  String make,
-      model,
-      year,
+  String make = "",
+      model = "",
+      year = "",
       imageURL =
-          'https://smartcdn.prod.postmedia.digital/driving/images?url=http://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2014/10/s3-9.jpg&w=960&h=480',
-      _licensePlate,
-      vin,
-      vehicleDescription,
-      bodyTypeDescription,
-      _nickname,
-      postalCode;
-  bool _metric;
-  int kilometers, miles;
-  List<ServiceRecord> serviceRecords;
-  List<Event> events;
+          'https://preview.redd.it/2015-s3-vs-2017-s3-hear-me-out-v0-sctewyx524kb1.jpg?width=900&format=pjpg&auto=webp&s=9bd0630e4f4f3c7a31a01f9f4455a09bfe789bba',
+      _licensePlate = "",
+      vin = "",
+      vehicleDescription = "",
+      bodyTypeDescription = "",
+      _nickname = "",
+      postalCode = "";
+  bool _metric = true;
+  int kilometers = 0, miles = 0;
+  List<ServiceRecord> serviceRecords = [];
+  List<Event> events = [];
 
   String get licensePlate => _licensePlate;
   set licensePlate(val) {
@@ -55,5 +55,5 @@ class UserVehicle with ChangeNotifier {
 }
 
 class ServiceRecord {
-  String shopName, date, servicePerformed, kmAtService, miAtService;
+  String shopName = "", date = "", servicePerformed = "", kmAtService = "", miAtService = "";
 }

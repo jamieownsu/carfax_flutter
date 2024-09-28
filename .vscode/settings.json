@@ -1,4 +1,16 @@
-{
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "Dart-Code.dart-code"
+{    
+    "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            160
+        ],
+    },
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
+    },
+    "dart.flutterCreateOrganization": "com.kijiji",
+    "dart.lineLength": 160, 
 }

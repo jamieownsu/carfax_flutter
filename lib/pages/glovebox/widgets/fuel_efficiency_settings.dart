@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FuelSettings extends StatefulWidget {
-  FuelSettings({Key key}) : super(key: key);
+  const FuelSettings({super.key});
 
   @override
   _FuelSettingsState createState() => _FuelSettingsState();
@@ -10,29 +10,20 @@ class FuelSettings extends StatefulWidget {
 class _FuelSettingsState extends State<FuelSettings> {
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
-        child: const Text('FUEL EFFICIENCY SETTINGS',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+        child: Text('FUEL EFFICIENCY SETTINGS', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ),
       Card(
         child: Column(children: [
           Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      flex: 5,
-                      child: const Text('Fuel efficiency',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Expanded(
-                      flex: 2,
-                      child: const Text('Start Tracking',
-                          style: TextStyle(color: Colors.blueAccent))),
-                  Expanded(flex: 0, child: const Icon(Icons.arrow_right))
-                ]),
+            padding: EdgeInsets.all(10),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Expanded(flex: 5, child: Text('Fuel efficiency', style: TextStyle(fontWeight: FontWeight.bold))),
+              Expanded(flex: 2, child: Text('Start Tracking', style: TextStyle(color: Colors.blueAccent))),
+              Expanded(flex: 0, child: Icon(Icons.arrow_right))
+            ]),
           ),
         ]),
       )

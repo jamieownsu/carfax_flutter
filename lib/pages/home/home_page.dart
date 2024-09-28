@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    GetUtility.getAccount(context).then((value) {
+    GetUtility().getAccount(context).then((value) {
       setState(() => _loading = false);
     });
   }
@@ -29,10 +29,10 @@ class _HomePageState extends State<HomePage> {
     var account = context.read<UserAccount>();
     return Card(
       child: ListTile(
-          contentPadding: EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(10),
           leading: FadeInImage.memoryNetwork(
             placeholder: kTransparentImage,
-            image: vehicle.imageURL,
+            image: vehicle.imageURL, //'https://picsum.photos/250?image=9'
           ),
           title: Text('${vehicle.year} ${vehicle.make} ${vehicle.model}'),
           trailing: const Icon(Icons.arrow_right),
@@ -40,10 +40,9 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => MultiProvider(providers: [
-                    ChangeNotifierProvider.value(value: account),
-                    ChangeNotifierProvider.value(value: vehicle)
-                  ], child: VehicleDetailPage(vin: vehicle.vin)),
+                  builder: (context) => MultiProvider(
+                      providers: [ChangeNotifierProvider.value(value: account), ChangeNotifierProvider.value(value: vehicle)],
+                      child: VehicleDetailPage(vin: vehicle.vin)),
                 ));
           }),
     );
@@ -60,18 +59,10 @@ class _HomePageState extends State<HomePage> {
           return await showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AlertDialog(
-                  title: const Text('Confirm'),
-                  content: const Text(
-                      'Are you sure you wish to remove this vehicle?'),
-                  actions: <Widget>[
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: const Text('CONFIRM')),
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text('CANCEL')),
-                  ]);
+              return AlertDialog(title: const Text('Confirm'), content: const Text('Are you sure you wish to remove this vehicle?'), actions: <Widget>[
+                TextButton(onPressed: () => Navigator.of(context).pop(true), child: const Text('CONFIRM')),
+                TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('CANCEL')),
+              ]);
             },
           );
         },
@@ -84,8 +75,7 @@ class _HomePageState extends State<HomePage> {
             child: TextButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.delete, color: Colors.white),
-              label: Text('Delete',
-                  style: const TextStyle(fontSize: 16, color: Colors.white)),
+              label: const Text('Delete', style: TextStyle(fontSize: 16, color: Colors.white)),
             ),
           ),
         ),
@@ -114,7 +104,7 @@ class _HomePageState extends State<HomePage> {
               fullscreenDialog: true,
               builder: (context) => ChangeNotifierProvider.value(
                 value: account,
-                child: AddCarPage(),
+                child: const AddCarPage(),
               ),
             ),
           );
@@ -131,9 +121,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: const Text('Garage'), centerTitle: true),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [_buildVehicleList(), _buildAddCarButton()]),
+          : Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [_buildVehicleList(), _buildAddCarButton()]),
     );
   }
 }
